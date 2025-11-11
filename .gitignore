@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+processing_all.log
+processing_log.txt
+scripts/*.log
+scripts/*.txt
+
+# 临时文件
+*.tmp
+*.bak
+*_backup.*
+
+# 备份数据文件夹（可选，如果需要保留备份可以注释掉）
+# data/backup/
+
+# 可选：如果数据文件很大，可以考虑不提交
+# *.csv
+# *.json
+
+# 但建议保留数据文件，因为网站需要它们
+

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颜色可视化 - 青花瓷数字博物馆</title>
+    <!-- 引入中文字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- ECharts for 桑基图 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 青花瓷主题色彩体系 */
+            --blue-dark: #1a4d7a;
+            --blue-medium: #2d7fc1;
+            --blue-light: #a8d5e2;
+            --porcelain-white: #f8f8f6;
+            --ink-black: #2c2c2c;
+            --seal-red: #c94a3d;
+            --paper-beige: #f5f1e8;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', '思源宋体', 'SimSun', serif;
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 50%, var(--blue-light) 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(26, 77, 122, 0.4);
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .controls input, .controls select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .controls input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .controls select {
+            min-width: 150px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            padding: 15px;
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 100%);
+            color: white;
+        }
+
+        .card-header h3 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .card-header .id {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .card-header .type {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .image-container img {
+            transform: scale(1.05);
+        }
+
+        .image-container .loading {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .colors-section {
+            padding: 20px;
+        }
+
+        .colors-section h4 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1em;
+        }
+
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .color-item {
+            flex: 1;
+            min-width: 80px;
+            max-width: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .color-item:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 60px;
+            display: block;
+        }
+
+        .color-info {
+            padding: 8px;
+            background: #f8f8f8;
+            text-align: center;
+            font-size: 0.75em;
+        }
+
+        .color-rgb {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .color-percentage {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .color-bar {
+            display: flex;
+            height: 30px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .color-segment {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .stats {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stats span {
+            margin: 0 15px;
+            color: #666;
+        }
+
+        .stats strong {
+            color: var(--blue-medium);
+            font-weight: 600;
+        }
+
+        /* 分页样式 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            padding: 10px 20px;
+            border: 2px solid var(--blue-medium);
+            background: white;
+            color: var(--blue-dark);
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: var(--blue-medium);
+            color: white;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination button.active {
+            background: var(--blue-dark);
+            color: white;
+            border-color: var(--blue-dark);
+        }
+
+        .pagination-info {
+            color: white;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+
+        /* 桑基图区域 */
+        .sankey-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 8px 24px rgba(26, 77, 122, 0.15);
+        }
+
+        .sankey-section h2 {
+            color: var(--blue-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.05em;
+            border-bottom: 3px solid var(--blue-medium);
+            padding-bottom: 15px;
+        }
+
+        .sankey-section .description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        #sankey-chart {
+            width: 100%;
+            height: 700px;
+            min-height: 500px;
+        }
+
+        /* RGB颜色展示区域 */
+        .rgb-section {
+            margin-bottom: 40px;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 青花瓷RGB颜色可视化</h1>
+            <a href="index.html" class="back-link">← 返回首页</a>
+        </div>
+        
+        <!-- RGB颜色展示区域 -->
+        <div class="rgb-section">
+            <div class="stats">
+                <span>总图片数: <strong id="total-count">0</strong></span>
+                <span>显示: <strong id="display-count">0</strong></span>
+            </div>
+
+            <div class="controls">
+                <input type="text" id="search-input" placeholder="搜索ID、类型或URL...">
+                <select id="type-filter">
+                    <option value="">所有类型</option>
+                </select>
+                <select id="sort-select">
+                    <option value="id-asc">ID 升序</option>
+                    <option value="id-desc">ID 降序</option>
+                    <option value="colors-asc">颜色数 升序</option>
+                    <option value="colors-desc">颜色数 降序</option>
+                </select>
+            </div>
+
+            <div id="gallery" class="gallery">
+                <div class="empty-state">加载中...</div>
+            </div>
+
+            <!-- 分页控件 -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button id="prev-btn" onclick="changePage(-1)">上一页</button>
+                <span class="pagination-info" id="page-info">第 1 页，共 1 页</span>
+                <button id="next-btn" onclick="changePage(1)">下一页</button>
+            </div>
+        </div>
+
+        <!-- 分隔线 -->
+        <div class="section-divider"></div>
+
+        <!-- 桑基图区域 -->
+        <div class="sankey-section">
+            <h2>📊 颜色流动关系图</h2>
+            <p class="description">
+                展示青花瓷在不同朝代、颜色类别和器型之间的流动关系，揭示颜色使用的历史演变规律
+            </p>
+            <div id="sankey-chart"></div>
+        </div>
+    </div>
+
+    <script>
+        let allData = [];
+        let filteredData = [];
+        let currentPage = 1;
+        const itemsPerPage = 6; // 每页显示6个卡片
+
+        // 解析RGB颜色字符串
+        function parseColors(colorString) {
+            if (!colorString || colorString.trim() === '') return [];
+            
+            const colors = [];
+            const parts = colorString.split(';');
+            
+            parts.forEach(part => {
+                const match = part.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\):\s*([\d.]+)/);
+                if (match) {
+                    colors.push({
+                        r: parseInt(match[1]),
+                        g: parseInt(match[2]),
+                        b: parseInt(match[3]),
+                        percentage: parseFloat(match[4]),
+                        rgb: `rgb(${match[1]}, ${match[2]}, ${match[3]})`
+                    });
+                }
+            });
+            
+            return colors.sort((a, b) => b.percentage - a.percentage);
+        }
+
+        // 创建卡片HTML
+        function createCard(item, index) {
+            const colors = parseColors(item.rgb_color);
+            const hasColors = colors.length > 0;
+            
+            let colorPaletteHTML = '';
+            let colorBarHTML = '';
+            
+            if (hasColors) {
+                colorPaletteHTML = colors.map(color => `
+                    <div class="color-item" title="${color.rgb} - ${(color.percentage * 100).toFixed(1)}%">
+                        <div class="color-swatch" style="background-color: ${color.rgb}"></div>
+                        <div class="color-info">
+                            <div class="color-rgb">${color.rgb}</div>
+                            <div class="color-percentage">${(color.percentage * 100).toFixed(1)}%</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                colorBarHTML = `<div class="color-bar">
+                    ${colors.map(color => `
+                        <div class="color-segment" style="width: ${color.percentage * 100}%; background-color: ${color.rgb}" 
+                             title="${color.rgb} - ${(color.percentage * 100).toFixed(1)}%"></div>
+                    `).join('')}
+                </div>`;
+            } else {
+                colorPaletteHTML = '<div style="color: #999; padding: 20px; text-align: center;">无颜色数据</div>';
+            }
+
+            return `
+                <div class="card" data-id="${item.id || index}" data-type="${item.type || ''}">
+                    <div class="card-header">
+                        <h3>${item.id ? `ID: ${item.id}` : '无ID'}</h3>
+                        <div class="id">${item.type || '未知类型'}</div>
+                        ${item.type ? `<span class="type">${item.type}</span>` : ''}
+                    </div>
+                    <div class="image-container">
+                        ${item.URL ? 
+                            `<img src="${item.URL}" alt="Image ${item.id || index}" loading="lazy" 
+                                  onerror="this.parentElement.innerHTML='<div class=\\'loading\\'>图片加载失败</div>'">` :
+                            '<div class="loading">无图片URL</div>'
+                        }
+                    </div>
+                    <div class="colors-section">
+                        <h4>RGB颜色 (${colors.length}种)</h4>
+                        <div class="color-palette">${colorPaletteHTML}</div>
+                        ${colorBarHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染画廊（带分页）
+        function renderGallery(data) {
+            const gallery = document.getElementById('gallery');
+            
+            if (data.length === 0) {
+                gallery.innerHTML = '<div class="empty-state">没有找到匹配的结果</div>';
+                document.getElementById('pagination').style.display = 'none';
+                return;
+            }
+            
+            // 计算分页
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+            currentPage = Math.min(currentPage, totalPages) || 1;
+            
+            // 获取当前页的数据
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = data.slice(startIndex, endIndex);
+            
+            // 渲染当前页
+            gallery.innerHTML = pageData.map((item, index) => createCard(item, startIndex + index)).join('');
+            document.getElementById('display-count').textContent = data.length;
+            
+            // 更新分页控件
+            updatePagination(data.length, totalPages);
+        }
+
+        // 更新分页控件
+        function updatePagination(totalItems, totalPages) {
+            const pagination = document.getElementById('pagination');
+            const pageInfo = document.getElementById('page-info');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            pageInfo.textContent = `第 ${currentPage} 页，共 ${totalPages} 页（共 ${totalItems} 项）`;
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        }
+
+        // 切换页面
+        function changePage(direction) {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            const newPage = currentPage + direction;
+            
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderGallery(filteredData);
+                // 滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // 过滤和排序
+        function filterAndSort() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const typeFilter = document.getElementById('type-filter').value;
+            const sortOption = document.getElementById('sort-select').value;
+            
+            filteredData = allData.filter(item => {
+                const matchSearch = !searchTerm || 
+                    (item.id && item.id.toString().toLowerCase().includes(searchTerm)) ||
+                    (item.type && item.type.toLowerCase().includes(searchTerm)) ||
+                    (item.URL && item.URL.toLowerCase().includes(searchTerm));
+                
+                const matchType = !typeFilter || item.type === typeFilter;
+                
+                return matchSearch && matchType;
+            });
+            
+            // 排序
+            filteredData.sort((a, b) => {
+                const colorsA = parseColors(a.rgb_color).length;
+                const colorsB = parseColors(b.rgb_color).length;
+                
+                switch(sortOption) {
+                    case 'id-asc':
+                        return (parseInt(a.id) || 0) - (parseInt(b.id) || 0);
+                    case 'id-desc':
+                        return (parseInt(b.id) || 0) - (parseInt(a.id) || 0);
+                    case 'colors-asc':
+                        return colorsA - colorsB;
+                    case 'colors-desc':
+                        return colorsB - colorsA;
+                    default:
+                        return 0;
+                }
+            });
+            
+            renderGallery(filteredData);
+        }
+
+        // 加载CSV数据
+        async function loadData() {
+            try {
+                const response = await fetch('color.csv');
+                const text = await response.text();
+                
+                const lines = text.split('\n');
+                
+                allData = [];
+                for (let i = 1; i < lines.length; i++) {
+                    if (lines[i].trim() === '') continue;
+                    
+                    // 改进的CSV解析（处理引号内的逗号）
+                    const values = [];
+                    let current = '';
+                    let inQuotes = false;
+                    
+                    for (let j = 0; j < lines[i].length; j++) {
+                        const char = lines[i][j];
+                        const nextChar = lines[i][j + 1];
+                        
+                        if (char === '"') {
+                            if (inQuotes && nextChar === '"') {
+                                current += '"';
+                                j++;
+                            } else {
+                                inQuotes = !inQuotes;
+                            }
+                        } else if (char === ',' && !inQuotes) {
+                            values.push(current);
+                            current = '';
+                        } else {
+                            current += char;
+                        }
+                    }
+                    values.push(current);
+                    
+                    // 移除值的首尾引号
+                    const cleanedValues = values.map(v => {
+                        let cleaned = v.trim();
+                        if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
+                            cleaned = cleaned.slice(1, -1);
+                        }
+                        return cleaned;
+                    });
+                    
+                    if (cleanedValues.length >= 3) {
+                        const item = {
+                            id: cleanedValues[0] || '',
+                            type: cleanedValues[1] || '',
+                            URL: cleanedValues[2] || '',
+                            rgb_color: cleanedValues[3] || ''
+                        };
+                        allData.push(item);
+                    }
+                }
+                
+                // 填充类型过滤器
+                const types = [...new Set(allData.map(item => item.type).filter(Boolean))].sort();
+                const typeSelect = document.getElementById('type-filter');
+                types.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type;
+                    typeSelect.appendChild(option);
+                });
+                
+                document.getElementById('total-count').textContent = allData.length;
+                filteredData = allData;
+                filterAndSort();
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.getElementById('gallery').innerHTML = 
+                    '<div class="empty-state">加载数据失败，请确保CSV文件在同一目录下</div>';
+            }
+        }
+
+        // 初始化桑基图
+        async function initSankeyChart() {
+            try {
+                const response = await fetch('sankey_data.json');
+                const sankeyData = await response.json();
+                
+                const chart = echarts.init(document.getElementById('sankey-chart'));
+                
+                // 创建节点名称到索引的映射
+                const nodeNameMap = {};
+                sankeyData.nodes.forEach((node, index) => {
+                    nodeNameMap[index] = node.name;
+                });
+                
+                // 准备ECharts桑基图数据格式
+                const nodes = sankeyData.nodes.map((node) => ({
+                    name: node.name,
+                    itemStyle: {
+                        color: getNodeColor(node.category, node.name)
+                    }
+                }));
+                
+                // 转换链接：从索引转换为节点名称
+                const links = sankeyData.links.map(link => ({
+                    source: nodeNameMap[link.source],
+                    target: nodeNameMap[link.target],
+                    value: link.value
+                }));
+                
+                const option = {
+                    backgroundColor: 'transparent',
+                    tooltip: {
+                        trigger: 'item',
+                        triggerOn: 'mousemove',
+                        backgroundColor: 'rgba(26, 77, 122, 0.9)',
+                        borderColor: '#2d7fc1',
+                        borderWidth: 1,
+                        textStyle: {
+                            color: '#fff',
+                            fontFamily: 'Noto Serif SC'
+                        },
+                        formatter: function(params) {
+                            if (params.dataType === 'edge') {
+                                return `<div style="padding: 5px;">
+                                    <strong>${params.data.source}</strong><br/>
+                                    ↓<br/>
+                                    <strong>${params.data.target}</strong><br/>
+                                    <span style="color: #a8d5e2;">权重: ${params.data.value.toFixed(3)}</span>
+                                </div>`;
+                            } else {
+                                return `<div style="padding: 5px;"><strong>${params.name}</strong></div>`;
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'sankey',
+                        layout: 'none',
+                        left: '5%',
+                        right: '5%',
+                        top: '5%',
+                        bottom: '10%',
+                        emphasis: {
+                            focus: 'adjacency',
+                            lineStyle: {
+                                opacity: 0.8
+                            }
+                        },
+                        data: nodes,
+                        links: links,
+                        lineStyle: {
+                            color: 'gradient',
+                            curveness: 0.5,
+                            opacity: 0.6
+                        },
+                        itemStyle: {
+                            borderWidth: 1,
+                            borderColor: '#1a4d7a',
+                            borderType: 'solid'
+                        },
+                        label: {
+                            fontSize: 13,
+                            fontFamily: 'Noto Serif SC',
+                            color: '#2c2c2c',
+                            fontWeight: 500
+                        },
+                        labelLayout: {
+                            hideOverlap: true
+                        }
+                    }]
+                };
+                
+                chart.setOption(option);
+                
+                // 响应式
+                window.addEventListener('resize', () => {
+                    chart.resize();
+                });
+                
+            } catch (error) {
+                console.error('加载桑基图数据失败:', error);
+                document.getElementById('sankey-chart').innerHTML = 
+                    '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666;">加载桑基图数据失败，请确保sankey_data.json文件存在</div>';
+            }
+        }
+
+        // 根据节点类别和名称获取颜色
+        function getNodeColor(category, name) {
+            const colorMap = {
+                '蓝色系': '#2d7fc1',
+                '白色系': '#f8f8f6',
+                '黑色系': '#2c2c2c',
+                '灰色系': '#808080',
+                '其他色系': '#a8d5e2'
+            };
+            
+            if (category === 'color') {
+                return colorMap[name] || '#a8d5e2';
+            } else if (category === 'period') {
+                return '#1a4d7a';
+            } else if (category === 'type') {
+                return '#4a90a4';
+            }
+            return '#a8d5e2';
+        }
+
+        // 事件监听
+        document.getElementById('search-input').addEventListener('input', () => {
+            currentPage = 1;
+            filterAndSort();
+        });
+        document.getElementById('type-filter').addEventListener('change', () => {
+            currentPage = 1;
+            filterAndSort();
+        });
+        document.getElementById('sort-select').addEventListener('change', () => {
+            currentPage = 1;
+            filterAndSort();
+        });
+
+        // 页面加载时加载数据
+        loadData();
+        initSankeyChart();
+    </script>
+</body>
+</html>
+

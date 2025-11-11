@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青花瓷数字博物馆</title>
+    <!-- 引入中文字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 青花瓷主题色彩体系 */
+            --blue-dark: #1a4d7a;        /* 深青花蓝 */
+            --blue-medium: #2d7fc1;       /* 中青花蓝 */
+            --blue-light: #a8d5e2;       /* 淡青花蓝 */
+            --porcelain-white: #f8f8f6;  /* 瓷白 */
+            --ink-black: #2c2c2c;        /* 墨黑 */
+            --seal-red: #c94a3d;         /* 朱砂红 */
+            --paper-beige: #f5f1e8;      /* 宣纸色 */
+            --paper-light: #faf8f3;      /* 淡宣纸色 */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', '思源宋体', 'SimSun', serif;
+            overflow-x: hidden;
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+        }
+
+        /* 传统纹样背景 */
+        .pattern-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(26, 77, 122, 0.1) 10px, rgba(26, 77, 122, 0.1) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 77, 122, 0.1) 10px, rgba(26, 77, 122, 0.1) 20px);
+            z-index: 1;
+        }
+
+        /* 封面区域 */
+        .cover-section {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 50%, var(--blue-light) 100%);
+            overflow: hidden;
+        }
+
+        .cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        .cover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(26, 77, 122, 0.75) 0%, 
+                rgba(45, 127, 193, 0.7) 50%, 
+                rgba(168, 213, 226, 0.65) 100%);
+            backdrop-filter: blur(2px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+
+        .cover-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.6), 0 0 30px rgba(26, 77, 122, 0.5);
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: 0.05em;
+        }
+
+        .cover-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 1.2s ease-out;
+            letter-spacing: 0.03em;
+            line-height: 1.8;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            z-index: 3;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 3px solid white;
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 10px;
+            background: white;
+            border-radius: 3px;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @keyframes scrollDown {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+        }
+
+        /* 导航区域 */
+        .navigation-section {
+            min-height: 100vh;
+            background: var(--paper-beige);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(168, 213, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(45, 127, 193, 0.1) 0%, transparent 50%);
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .navigation-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--blue-medium), transparent);
+        }
+
+        .nav-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .nav-card {
+            background: var(--porcelain-white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(26, 77, 122, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(168, 213, 226, 0.3);
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-card:hover::before {
+            left: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(26, 77, 122, 0.25);
+        }
+
+        .nav-card-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: transform 0.3s;
+        }
+
+        .nav-card:hover .nav-card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .nav-card-title {
+            font-size: 1.75rem;
+            color: var(--blue-dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .nav-card-description {
+            font-size: 1rem;
+            color: var(--ink-black);
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        /* 统一使用青花瓷主题色，通过深浅变化区分 */
+        .nav-card:nth-child(1) {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 100%);
+            color: white;
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .nav-card:nth-child(1) .nav-card-title {
+            color: white;
+        }
+
+        .nav-card:nth-child(1) .nav-card-description {
+            color: rgba(255,255,255,0.95);
+        }
+
+        .nav-card:nth-child(2) {
+            background: linear-gradient(135deg, var(--blue-medium) 0%, var(--blue-light) 100%);
+            color: white;
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .nav-card:nth-child(2) .nav-card-title {
+            color: white;
+        }
+
+        .nav-card:nth-child(2) .nav-card-description {
+            color: rgba(255,255,255,0.95);
+        }
+
+        .nav-card:nth-child(3) {
+            background: linear-gradient(135deg, var(--blue-light) 0%, var(--porcelain-white) 100%);
+            color: var(--blue-dark);
+            border-color: rgba(26, 77, 122, 0.2);
+        }
+
+        .nav-card:nth-child(3) .nav-card-title {
+            color: var(--blue-dark);
+        }
+
+        .nav-card:nth-child(3) .nav-card-description {
+            color: var(--ink-black);
+        }
+
+        .nav-card:nth-child(4) {
+            background: linear-gradient(135deg, var(--porcelain-white) 0%, var(--paper-beige) 100%);
+            color: var(--blue-dark);
+            border-color: rgba(26, 77, 122, 0.2);
+        }
+
+        .nav-card:nth-child(4) .nav-card-title {
+            color: var(--blue-dark);
+        }
+
+        .nav-card:nth-child(4) .nav-card-description {
+            color: var(--ink-black);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .cover-title {
+                font-size: 2.5em;
+            }
+
+            .cover-subtitle {
+                font-size: 1.2em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .nav-cards {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .nav-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 封面区域 -->
+    <section class="cover-section">
+        <div class="pattern-bg"></div>
+        <img src="生成青花瓷封面.png" alt="青花瓷封面" class="cover-image">
+        <div class="cover-overlay">
+            <h1 class="cover-title">青花瓷数字博物馆</h1>
+            <p class="cover-subtitle">探索千年青花瓷的艺术与历史</p>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- 导航区域 -->
+    <section class="navigation-section">
+        <h2 class="section-title">选择探索方式</h2>
+        <div class="nav-cards">
+            <a href="colors.html" class="nav-card">
+                <div class="nav-card-icon">🎨</div>
+                <h3 class="nav-card-title">颜色可视化</h3>
+                <p class="nav-card-description">
+                    浏览青花瓷的RGB颜色分析，探索每件作品的色彩构成和分布规律
+                </p>
+            </a>
+
+            <a href="map.html" class="nav-card">
+                <div class="nav-card-icon">🗺️</div>
+                <h3 class="nav-card-title">地理分布</h3>
+                <p class="nav-card-description">
+                    在地图上查看青花瓷的地理分布，了解不同地区的青花瓷特色
+                </p>
+            </a>
+
+            <a href="analysis.html" class="nav-card">
+                <div class="nav-card-icon">📊</div>
+                <h3 class="nav-card-title">数据分析</h3>
+                <p class="nav-card-description">
+                    深入分析青花瓷的朝代分布、器型统计和装饰元素等多维度数据
+                </p>
+            </a>
+
+            <a href="text_analysis.html" class="nav-card">
+                <div class="nav-card-icon">📝</div>
+                <h3 class="nav-card-title">文本分析</h3>
+                <p class="nav-card-description">
+                    通过文本挖掘和关系图谱，探索青花瓷描述中的关键词、主题和隐含关系
+                </p>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // 平滑滚动效果
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.navigation-section').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地理分布 - 青花瓷数字博物馆</title>
+    <!-- 引入中文字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 青花瓷主题色彩体系 */
+            --blue-dark: #1a4d7a;
+            --blue-medium: #2d7fc1;
+            --blue-light: #a8d5e2;
+            --porcelain-white: #f8f8f6;
+            --ink-black: #2c2c2c;
+            --seal-red: #c94a3d;
+            --paper-beige: #f5f1e8;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', '思源宋体', 'SimSun', serif;
+            background: linear-gradient(135deg, var(--blue-medium) 0%, var(--blue-light) 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(26, 77, 122, 0.4);
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stats {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stats span {
+            margin: 0 15px;
+            color: #666;
+        }
+
+        .stats strong {
+            color: var(--blue-medium);
+            font-weight: 600;
+        }
+
+        #map {
+            height: 700px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .popup-content {
+            max-width: 300px;
+        }
+
+        .popup-content img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .popup-content h3 {
+            margin: 0 0 10px 0;
+            color: var(--blue-medium);
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .popup-content p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .popup-content .label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .popup-content .description {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            font-size: 0.85em;
+            color: #555;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗺️ 青花瓷地理分布</h1>
+            <a href="index.html" class="back-link">← 返回首页</a>
+        </div>
+        
+        <div class="stats">
+            <span>总位置数: <strong id="location-count">0</strong></span>
+        </div>
+        <div id="map"></div>
+    </div>
+
+    <script>
+        let locationData = [];
+        let map = null;
+
+        // 初始化地图
+        function initMap() {
+            // 创建地图，中心点设置为中国
+            map = L.map('map').setView([35.0, 105.0], 4);
+
+            // 添加OpenStreetMap图层
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18
+            }).addTo(map);
+
+            // 加载位置数据并添加标记
+            loadLocationData();
+        }
+
+        // 加载位置数据
+        async function loadLocationData() {
+            try {
+                const response = await fetch('location_data.json');
+                locationData = await response.json();
+                
+                document.getElementById('location-count').textContent = locationData.length;
+
+                // 为每个位置添加标记
+                locationData.forEach(item => {
+                    if (item.latitude && item.longitude) {
+                        // 创建自定义图标
+                        const customIcon = L.divIcon({
+                            className: 'custom-marker',
+                            html: `<div style="background-color: #2d7fc1; width: 30px; height: 30px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">${item.id}</div>`,
+                            iconSize: [30, 30],
+                            iconAnchor: [15, 15]
+                        });
+
+                        // 创建标记
+                        const marker = L.marker([item.latitude, item.longitude], {
+                            icon: customIcon
+                        }).addTo(map);
+
+                        // 创建弹窗内容
+                        let popupContent = `
+                            <div class="popup-content">
+                                <h3>ID: ${item.id} - ${item.location}</h3>
+                        `;
+
+                        if (item.url) {
+                            popupContent += `<img src="${item.url}" alt="青花瓷 ${item.id}" onerror="this.style.display='none'">`;
+                        }
+
+                        popupContent += `
+                                <p><span class="label">时期:</span> ${item.periods || '未知'}</p>
+                                <p><span class="label">年代:</span> ${item.date || '未知'}</p>
+                                <p><span class="label">类型:</span> ${item.type || '未知'}</p>
+                                <p><span class="label">尺寸:</span> ${item.size || '未知'}</p>
+                                <p><span class="label">元素:</span> ${item.element || '未知'}</p>
+                                <p><span class="label">对象编号:</span> ${item.objectNum || '未知'}</p>
+                        `;
+
+                        if (item.description) {
+                            popupContent += `<div class="description"><span class="label">描述:</span> ${item.description}</div>`;
+                        }
+
+                        popupContent += `</div>`;
+
+                        // 绑定弹窗
+                        marker.bindPopup(popupContent, {
+                            maxWidth: 350
+                        });
+                    }
+                });
+
+                // 如果有标记，调整地图视图以显示所有标记
+                if (locationData.length > 0) {
+                    const bounds = locationData
+                        .filter(item => item.latitude && item.longitude)
+                        .map(item => [item.latitude, item.longitude]);
+                    
+                    if (bounds.length > 0) {
+                        map.fitBounds(bounds, { padding: [50, 50] });
+                    }
+                }
+
+            } catch (error) {
+                console.error('加载位置数据失败:', error);
+                document.getElementById('map').innerHTML = 
+                    '<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: white; border-radius: 10px; color: #666;">加载位置数据失败，请确保location_data.json文件存在</div>';
+            }
+        }
+
+        // 页面加载完成后初始化地图
+        window.addEventListener('DOMContentLoaded', () => {
+            initMap();
+        });
+    </script>
+</body>
+</html>
+

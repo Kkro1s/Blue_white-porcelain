@@ -1,0 +1,1526 @@
+{
+  "text_analysis": {
+    "keyword_frequency": {
+      "base": 154,
+      "band": 116,
+      "around": 108,
+      "inscription": 97,
+      "rim": 91,
+      "two": 88,
+      "foot": 81,
+      "neck": 76,
+      "flowers": 69,
+      "inside": 68,
+      "lotus": 68,
+      "scrolling": 68,
+      "sides": 63,
+      "leaves": 54,
+      "dish": 53,
+      "bowl": 52,
+      "flower": 51,
+      "body": 48,
+      "large": 47,
+      "roundel": 47,
+      "centre": 46,
+      "mark": 45,
+      "vase": 42,
+      "double": 40,
+      "form": 40,
+      "wide": 40,
+      "shaped": 39,
+      "mouth": 39,
+      "waves": 39,
+      "stem": 38,
+      "cup": 35,
+      "scroll": 34,
+      "above": 33,
+      "side": 33,
+      "three": 33,
+      "rounded": 32,
+      "small": 32,
+      "four": 31,
+      "sprays": 29,
+      "exterior": 29,
+      "ring": 28,
+      "outside": 28,
+      "below": 27,
+      "unglazed": 27,
+      "central": 26,
+      "one": 25,
+      "ruyi": 25,
+      "panels": 24,
+      "five": 23,
+      "rocks": 23
+    },
+    "top_keywords": [
+      "base",
+      "band",
+      "around",
+      "inscription",
+      "rim",
+      "two",
+      "foot",
+      "neck",
+      "flowers",
+      "inside",
+      "lotus",
+      "scrolling",
+      "sides",
+      "leaves",
+      "dish",
+      "bowl",
+      "flower",
+      "body",
+      "large",
+      "roundel",
+      "centre",
+      "mark",
+      "vase",
+      "double",
+      "form",
+      "wide",
+      "shaped",
+      "mouth",
+      "waves",
+      "stem"
+    ],
+    "period_keywords": {
+      "Ming dynasty": {
+        "dish": 46,
+        "bowl": 44,
+        "sides": 42,
+        "band": 34,
+        "two": 30,
+        "rim": 28,
+        "wide": 27,
+        "form": 26,
+        "rounded": 25,
+        "scrolling": 24
+      },
+      "Yuan dynasty": {
+        "large": 2,
+        "form": 2,
+        "ovoid": 2,
+        "jar": 2,
+        "altar": 1,
+        "vase": 1,
+        "ancient": 1,
+        "bronze": 1,
+        "two": 1,
+        "applied": 1
+      },
+      "Qing dynasty": {
+        "vase": 13,
+        "made": 10,
+        "cup": 7,
+        "wide": 7,
+        "two": 7,
+        "form": 6,
+        "large": 6,
+        "scene": 6,
+        "pot": 6,
+        "body": 6
+      },
+      "Ming dynasty (Zhengde)": {
+        "brush": 1,
+        "rest": 1,
+        "form": 1,
+        "five": 1,
+        "peaked": 1,
+        "mountain": 1,
+        "dense": 1,
+        "classic": 1,
+        "scrolls": 1,
+        "single": 1
+      },
+      "Qing dynasty (Kangxi)": {
+        "cup": 5,
+        "sides": 3,
+        "rim": 3,
+        "flared": 2,
+        "scene": 2,
+        "wine": 1,
+        "rounded": 1,
+        "two": 1,
+        "stylised": 1,
+        "dragon": 1
+      },
+      "Ming dynasty (Xuande)": {
+        "stem": 2,
+        "cup": 2,
+        "reserved": 1,
+        "delicately": 1,
+        "potted": 1,
+        "rounded": 1,
+        "sides": 1,
+        "everted": 1
+      },
+      "Ming dynasty (Wanli)": {
+        "cup": 1,
+        "lobed": 1,
+        "mouth": 1,
+        "rim": 1,
+        "three": 1,
+        "small": 1,
+        "feet": 1,
+        "handle": 1,
+        "lingzhi": 1,
+        "shape": 1
+      },
+      "Ming dynasty / Qing dynasty": {
+        "lid": 1,
+        "large": 1,
+        "guan": 1,
+        "wine": 1,
+        "jar": 1,
+        "fish": 1,
+        "dragon": 1,
+        "handles": 1,
+        "silver": 1,
+        "rim": 1
+      }
+    },
+    "type_keywords": {
+      "albarello": {
+        "albarello": 2,
+        "jar": 2,
+        "barrel": 1,
+        "shaped": 1,
+        "raised": 1,
+        "double": 1,
+        "ridge": 1,
+        "below": 1
+      },
+      "alms-bowl": {
+        "alms": 1,
+        "bowl": 1,
+        "rounded": 1,
+        "sides": 1,
+        "foot": 1,
+        "four": 1,
+        "individual": 1,
+        "flower": 1,
+        "sprays": 1,
+        "prunus": 1
+      },
+      "altar-vase": {
+        "large": 1,
+        "altar": 1,
+        "vase": 1,
+        "ancient": 1,
+        "bronze": 1,
+        "form": 1,
+        "two": 1,
+        "applied": 1,
+        "elephant": 1,
+        "head": 1
+      },
+      "bird-feeder": {
+        "two": 4,
+        "small": 3,
+        "bird": 3,
+        "feeder": 3,
+        "form": 3,
+        "horizontal": 2,
+        "trough": 2,
+        "circular": 2,
+        "openings": 2,
+        "section": 1
+      },
+      "bottle": {
+        "bottle": 11,
+        "shaped": 7,
+        "large": 4,
+        "gourd": 4,
+        "pear": 3,
+        "neck": 3,
+        "form": 3,
+        "narrow": 3,
+        "double": 2,
+        "heavily": 2
+      },
+      "bowl": {
+        "bowl": 44,
+        "band": 20,
+        "sides": 18,
+        "wide": 18,
+        "straight": 9,
+        "scrolling": 9,
+        "rounded": 8,
+        "rim": 8,
+        "two": 7,
+        "lotus": 7
+      },
+      "box": {
+        "box": 8,
+        "round": 4,
+        "covered": 3,
+        "cover": 3,
+        "small": 2,
+        "around": 2,
+        "circular": 2,
+        "scholar": 2,
+        "landscape": 2,
+        "scene": 2
+      },
+      "brush-pot": {
+        "cylindrical": 1,
+        "brush": 1,
+        "pot": 1,
+        "pencilled": 1,
+        "style": 1,
+        "scene": 1,
+        "showing": 1,
+        "figures": 1,
+        "horse": 1,
+        "landscape": 1
+      },
+      "brush-rest": {
+        "brush": 2,
+        "rest": 2,
+        "form": 2,
+        "peaked": 2,
+        "series": 1,
+        "mountains": 1,
+        "semi": 1,
+        "circular": 1,
+        "base": 1,
+        "naturalistically": 1
+      },
+      "cup": {
+        "cup": 29,
+        "stem": 17,
+        "sides": 6,
+        "rim": 5,
+        "scene": 5,
+        "small": 5,
+        "rocks": 5,
+        "tall": 5,
+        "band": 5,
+        "waves": 5
+      },
+      "cup-stand": {
+        "cup": 1,
+        "stand": 1,
+        "band": 1,
+        "scrolling": 1,
+        "lotus": 1,
+        "flowers": 1,
+        "leaves": 1,
+        "around": 1,
+        "central": 1,
+        "recess": 1
+      },
+      "dish": {
+        "dish": 43,
+        "sides": 19,
+        "rim": 15,
+        "rounded": 13,
+        "scrolling": 10,
+        "two": 10,
+        "band": 9,
+        "large": 9,
+        "flower": 7,
+        "inside": 7
+      },
+      "ewer": {
+        "ewer": 8,
+        "shaped": 3,
+        "body": 3,
+        "spout": 3,
+        "pear": 2,
+        "form": 2,
+        "dish": 2,
+        "mouth": 2,
+        "high": 2,
+        "out": 1
+      },
+      "flask": {
+        "flask": 5,
+        "form": 4,
+        "two": 4,
+        "handles": 4,
+        "strap": 3,
+        "flattened": 2,
+        "neck": 2,
+        "baoyue": 2,
+        "attached": 2,
+        "globular": 1
+      },
+      "flower-pot-stand": {
+        "flower": 1,
+        "pot": 1,
+        "stand": 1,
+        "form": 1,
+        "tripod": 1,
+        "censer": 1,
+        "pencilled": 1,
+        "style": 1,
+        "phoenixes": 1,
+        "pheasants": 1
+      },
+      "guan": {
+        "jar": 5,
+        "guan": 2,
+        "neck": 2,
+        "ovoid": 2,
+        "wine": 1,
+        "broad": 1,
+        "rounded": 1,
+        "shoulders": 1,
+        "short": 1,
+        "thickened": 1
+      },
+      "jue": {
+        "libation": 1,
+        "vessel": 1,
+        "ancient": 1,
+        "bronze": 1,
+        "jue": 1,
+        "form": 1,
+        "three": 1,
+        "legs": 1,
+        "loop": 1,
+        "handle": 1
+      },
+      "lamp": {
+        "lamp": 1,
+        "constructed": 1,
+        "three": 1,
+        "detachable": 1,
+        "parts": 1,
+        "saucer": 1,
+        "base": 1,
+        "long": 1,
+        "cylindrical": 1,
+        "tube": 1
+      },
+      "lid": {
+        "lid": 1,
+        "large": 1,
+        "guan": 1,
+        "wine": 1,
+        "jar": 1,
+        "fish": 1,
+        "dragon": 1,
+        "handles": 1,
+        "silver": 1,
+        "rim": 1
+      },
+      "kendi": {
+        "kendi": 1,
+        "form": 1,
+        "seated": 1,
+        "toad": 1,
+        "long": 1,
+        "hexagonal": 1,
+        "neck": 1,
+        "delineating": 1,
+        "body": 1,
+        "parts": 1
+      },
+      "tile": {
+        "square": 2,
+        "tile": 2,
+        "inscription": 1,
+        "stepped": 1,
+        "unglazed": 1,
+        "edge": 1,
+        "corners": 1,
+        "cut": 1
+      },
+      "vase": {
+        "vase": 31,
+        "neck": 12,
+        "form": 9,
+        "two": 8,
+        "body": 7,
+        "large": 7,
+        "wide": 7,
+        "long": 6,
+        "bronze": 5,
+        "handles": 5
+      },
+      "pot": {
+        "pot": 7,
+        "water": 4,
+        "form": 4,
+        "body": 3,
+        "made": 3,
+        "mustard": 2,
+        "riverside": 2,
+        "scenes": 2,
+        "globular": 2,
+        "shaped": 2
+      },
+      "saucer": {
+        "saucer": 2,
+        "small": 1,
+        "snuff": 1,
+        "large": 1,
+        "central": 1,
+        "flower": 1,
+        "against": 1,
+        "dense": 1,
+        "ground": 1,
+        "leaves": 1
+      },
+      "spittoon": {
+        "spittoon": 1,
+        "zhadou": 1,
+        "form": 1,
+        "wide": 1,
+        "band": 1,
+        "turbulent": 1,
+        "waves": 1,
+        "rocks": 1,
+        "around": 1,
+        "body": 1
+      }
+    },
+    "entity_relations": {
+      "pattern_type": {
+        "flower_albarello": 1,
+        "scroll_albarello": 1,
+        "mark_albarello": 1,
+        "flower_alms-bowl": 1,
+        "lotus_alms-bowl": 1,
+        "peony_alms-bowl": 1,
+        "chrysanthemum_alms-bowl": 1,
+        "prunus_alms-bowl": 1,
+        "inscription_alms-bowl": 1,
+        "dragon_altar-vase": 1,
+        "phoenix_altar-vase": 1,
+        "cloud_altar-vase": 1,
+        "scroll_altar-vase": 1,
+        "inscription_altar-vase": 1,
+        "flower_bird-feeder": 3,
+        "bird_bird-feeder": 3,
+        "leaf_bird-feeder": 1,
+        "bamboo_bird-feeder": 1,
+        "inscription_bird-feeder": 3,
+        "scroll_bird-feeder": 2,
+        "flower_bottle": 5,
+        "deer_bottle": 2,
+        "crane_bottle": 2,
+        "scroll_bottle": 4,
+        "leaf_bottle": 2,
+        "bamboo_bottle": 3,
+        "pine_bottle": 2,
+        "landscape_bottle": 3,
+        "figure_bottle": 2,
+        "immortal_bottle": 3,
+        "deity_bottle": 2,
+        "mark_bottle": 5,
+        "dragon_bowl": 6,
+        "cloud_bowl": 7,
+        "mark_bowl": 7,
+        "pine_bowl": 4,
+        "landscape_bowl": 2,
+        "scroll_bowl": 22,
+        "inscription_bowl": 27,
+        "deer_bowl": 1,
+        "seal_bottle": 1,
+        "bird_bottle": 2,
+        "cloud_bottle": 2,
+        "inscription_bottle": 1,
+        "lotus_bottle": 3,
+        "prunus_bottle": 1,
+        "flower_bowl": 17,
+        "dragon_box": 4,
+        "inscription_box": 5,
+        "mark_box": 1,
+        "seal_box": 1,
+        "pine_box": 3,
+        "landscape_box": 3,
+        "flower_box": 4,
+        "cloud_box": 1,
+        "figure_box": 1,
+        "lotus_box": 1,
+        "scroll_box": 2,
+        "landscape_brush-pot": 1,
+        "figure_brush-pot": 1,
+        "inscription_brush-pot": 1,
+        "scroll_brush-rest": 1,
+        "inscription_brush-rest": 1,
+        "crane_cup": 1,
+        "cloud_cup": 5,
+        "mark_cup": 9,
+        "dragon_cup": 6,
+        "flower_cup-stand": 1,
+        "lotus_cup-stand": 1,
+        "scroll_cup-stand": 1,
+        "inscription_cup-stand": 1,
+        "inscription_cup": 16,
+        "flower_cup": 10,
+        "bird_cup": 3,
+        "scroll_cup": 8,
+        "landscape_cup": 3,
+        "flower_dish": 18,
+        "scroll_dish": 17,
+        "fish_dish": 6,
+        "inscription_dish": 16,
+        "mark_dish": 11,
+        "lotus_dish": 13,
+        "bamboo_dish": 2,
+        "pine_dish": 2,
+        "dragon_dish": 6,
+        "cloud_dish": 5,
+        "seal_dish": 1,
+        "bird_dish": 3,
+        "landscape_dish": 5,
+        "phoenix_dish": 1,
+        "leaf_dish": 2,
+        "chrysanthemum_dish": 1,
+        "deer_dish": 1,
+        "crane_dish": 1,
+        "immortal_dish": 1,
+        "fish_bowl": 3,
+        "peony_bowl": 2,
+        "crane_bowl": 2,
+        "lotus_bowl": 11,
+        "chrysanthemum_bowl": 2,
+        "leaf_bowl": 2,
+        "phoenix_bowl": 2,
+        "seal_bowl": 1,
+        "prunus_bowl": 2,
+        "bamboo_bowl": 2,
+        "bird_bowl": 2,
+        "figure_dish": 2,
+        "peony_ewer": 2,
+        "cloud_ewer": 3,
+        "scroll_ewer": 2,
+        "flower_ewer": 2,
+        "mark_ewer": 1,
+        "dragon_flask": 2,
+        "flower_flask": 4,
+        "lotus_flask": 2,
+        "scroll_flask": 1,
+        "cloud_flask": 3,
+        "inscription_flask": 1,
+        "prunus_flask": 1,
+        "bird_flask": 1,
+        "phoenix_flower-pot-stand": 1,
+        "flower_flower-pot-stand": 1,
+        "peony_flower-pot-stand": 1,
+        "crane_flower-pot-stand": 1,
+        "bamboo_flower-pot-stand": 1,
+        "pine_flower-pot-stand": 1,
+        "inscription_flower-pot-stand": 1,
+        "phoenix_guan": 1,
+        "flower_guan": 1,
+        "lotus_guan": 2,
+        "scroll_guan": 2,
+        "chrysanthemum_guan": 1,
+        "landscape_ewer": 1,
+        "figure_ewer": 1,
+        "dragon_jue": 1,
+        "cloud_jue": 1,
+        "inscription_jue": 1,
+        "phoenix_lamp": 1,
+        "flower_lamp": 1,
+        "scroll_lamp": 1,
+        "inscription_lamp": 1,
+        "dragon_lid": 1,
+        "phoenix_lid": 1,
+        "flower_lid": 1,
+        "lotus_lid": 1,
+        "chrysanthemum_lid": 1,
+        "fish_lid": 1,
+        "scroll_lid": 1,
+        "flower_kendi": 1,
+        "bird_kendi": 1,
+        "inscription_tile": 1,
+        "bird_guan": 1,
+        "landscape_guan": 1,
+        "landscape_pot": 3,
+        "flower_pot": 2,
+        "scroll_pot": 3,
+        "flower_saucer": 2,
+        "bird_saucer": 1,
+        "cloud_saucer": 1,
+        "inscription_saucer": 1,
+        "cloud_spittoon": 1,
+        "inscription_spittoon": 1,
+        "lotus_cup": 7,
+        "immortal_cup": 1,
+        "chrysanthemum_cup": 3,
+        "fish_cup": 2,
+        "bamboo_cup": 1,
+        "flower_vase": 14,
+        "lotus_vase": 12,
+        "cloud_vase": 5,
+        "scroll_vase": 17,
+        "inscription_vase": 7,
+        "mark_vase": 6,
+        "fish_vase": 1,
+        "bamboo_vase": 3,
+        "bird_vase": 2,
+        "pine_vase": 2,
+        "dragon_vase": 2,
+        "prunus_vase": 1,
+        "phoenix_vase": 1,
+        "peony_vase": 2,
+        "leaf_vase": 2,
+        "dragon_pot": 1,
+        "inscription_pot": 1,
+        "fish_pot": 1,
+        "leaf_pot": 1,
+        "mark_pot": 1,
+        "prunus_box": 1,
+        "bamboo_box": 1
+      },
+      "technique_type": {
+        "underglaze_albarello": 1,
+        "glazed_albarello": 1,
+        "unglazed_albarello": 1,
+        "underglaze_alms-bowl": 1,
+        "underglaze_altar-vase": 1,
+        "applied_altar-vase": 1,
+        "underglaze_bird-feeder": 3,
+        "relief_bird-feeder": 2,
+        "reserved_bird-feeder": 2,
+        "underglaze_bottle": 9,
+        "glazed_bottle": 3,
+        "outlined_bottle": 2,
+        "underglaze_bowl": 39,
+        "underglaze_box": 8,
+        "underglaze_brush-pot": 1,
+        "underglaze_brush-rest": 2,
+        "applied_brush-rest": 1,
+        "relief_brush-rest": 1,
+        "underglaze_cup": 30,
+        "underglaze_cup-stand": 1,
+        "glazed_cup": 4,
+        "unglazed_cup": 3,
+        "incised_cup": 2,
+        "reserved_cup": 2,
+        "underglaze_dish": 36,
+        "glazed_dish": 8,
+        "unglazed_dish": 7,
+        "reserved_dish": 1,
+        "outlined_dish": 2,
+        "glazed_bowl": 3,
+        "unglazed_bowl": 2,
+        "underglaze_ewer": 5,
+        "glazed_ewer": 3,
+        "unglazed_ewer": 2,
+        "applied_ewer": 1,
+        "reserved_ewer": 1,
+        "underglaze_flask": 5,
+        "glazed_flask": 1,
+        "unglazed_flask": 1,
+        "underglaze_flower-pot-stand": 1,
+        "underglaze_guan": 3,
+        "glazed_guan": 2,
+        "unglazed_guan": 2,
+        "relief_ewer": 1,
+        "reserved_jue": 1,
+        "underglaze_lamp": 1,
+        "underglaze_lid": 1,
+        "glazed_lid": 1,
+        "unglazed_lid": 1,
+        "underglaze_kendi": 1,
+        "underglaze_tile": 1,
+        "glazed_tile": 1,
+        "unglazed_tile": 1,
+        "underglaze_vase": 29,
+        "underglaze_pot": 8,
+        "underglaze_saucer": 2,
+        "underglaze_spittoon": 1,
+        "relief_cup": 1,
+        "outlined_cup": 1,
+        "glazed_vase": 8,
+        "unglazed_vase": 6,
+        "carved_vase": 1,
+        "relief_vase": 1,
+        "incised_vase": 2,
+        "applied_vase": 1,
+        "relief_pot": 1,
+        "applied_pot": 1,
+        "glazed_box": 1,
+        "unglazed_box": 1
+      },
+      "period_pattern": {
+        "Ming dynasty_flower": 72,
+        "Ming dynasty_scroll": 66,
+        "Ming dynasty_mark": 32,
+        "Ming dynasty_lotus": 45,
+        "Ming dynasty_peony": 8,
+        "Ming dynasty_chrysanthemum": 6,
+        "Ming dynasty_prunus": 7,
+        "Ming dynasty_inscription": 66,
+        "Yuan dynasty_dragon": 1,
+        "Yuan dynasty_phoenix": 1,
+        "Yuan dynasty_cloud": 1,
+        "Yuan dynasty_scroll": 3,
+        "Yuan dynasty_inscription": 1,
+        "Ming dynasty_bird": 16,
+        "Ming dynasty_leaf": 8,
+        "Ming dynasty_bamboo": 13,
+        "Ming dynasty_deer": 4,
+        "Ming dynasty_crane": 6,
+        "Ming dynasty_pine": 11,
+        "Ming dynasty_landscape": 14,
+        "Ming dynasty_figure": 5,
+        "Ming dynasty_immortal": 5,
+        "Ming dynasty_deity": 2,
+        "Ming dynasty_dragon": 19,
+        "Ming dynasty_cloud": 26,
+        "Ming dynasty_seal": 4,
+        "Qing dynasty_cloud": 6,
+        "Qing dynasty_inscription": 17,
+        "Qing dynasty_lotus": 5,
+        "Qing dynasty_scroll": 12,
+        "Qing dynasty_mark": 7,
+        "Qing dynasty_dragon": 7,
+        "Qing dynasty_pine": 3,
+        "Qing dynasty_landscape": 7,
+        "Qing dynasty_flower": 12,
+        "Qing dynasty_figure": 2,
+        "Ming dynasty (Zhengde)_scroll": 1,
+        "Ming dynasty (Zhengde)_inscription": 1,
+        "Qing dynasty_crane": 1,
+        "Qing dynasty (Kangxi)_dragon": 1,
+        "Qing dynasty (Kangxi)_cloud": 2,
+        "Qing dynasty (Kangxi)_mark": 2,
+        "Qing dynasty (Kangxi)_flower": 2,
+        "Qing dynasty (Kangxi)_lotus": 1,
+        "Qing dynasty (Kangxi)_scroll": 2,
+        "Qing dynasty (Kangxi)_inscription": 3,
+        "Qing dynasty (Kangxi)_bird": 1,
+        "Ming dynasty (Xuande)_dragon": 1,
+        "Ming dynasty (Xuande)_mark": 1,
+        "Ming dynasty (Wanli)_flower": 1,
+        "Ming dynasty (Wanli)_scroll": 1,
+        "Qing dynasty (Kangxi)_landscape": 1,
+        "Ming dynasty_fish": 12,
+        "Yuan dynasty_flower": 1,
+        "Yuan dynasty_lotus": 2,
+        "Ming dynasty_phoenix": 6,
+        "Qing dynasty_leaf": 2,
+        "Yuan dynasty_chrysanthemum": 1,
+        "Qing dynasty_phoenix": 1,
+        "Ming dynasty / Qing dynasty_dragon": 1,
+        "Ming dynasty / Qing dynasty_phoenix": 1,
+        "Ming dynasty / Qing dynasty_flower": 1,
+        "Ming dynasty / Qing dynasty_lotus": 1,
+        "Ming dynasty / Qing dynasty_chrysanthemum": 1,
+        "Ming dynasty / Qing dynasty_fish": 1,
+        "Ming dynasty / Qing dynasty_scroll": 1,
+        "Qing dynasty_bird": 2,
+        "Qing dynasty_fish": 1,
+        "Qing dynasty_bamboo": 1,
+        "Qing dynasty_chrysanthemum": 1
+      }
+    }
+  },
+  "relationship_map": {
+    "nodes": [
+      {
+        "id": 0,
+        "name": "Ming dynasty",
+        "category": "period",
+        "value": 146
+      },
+      {
+        "id": 1,
+        "name": "Yuan dynasty",
+        "category": "period",
+        "value": 3
+      },
+      {
+        "id": 2,
+        "name": "Qing dynasty",
+        "category": "period",
+        "value": 37
+      },
+      {
+        "id": 3,
+        "name": "Ming dynasty (Zhengde)",
+        "category": "period",
+        "value": 1
+      },
+      {
+        "id": 4,
+        "name": "Qing dynasty (Kangxi)",
+        "category": "period",
+        "value": 5
+      },
+      {
+        "id": 5,
+        "name": "Ming dynasty (Xuande)",
+        "category": "period",
+        "value": 1
+      },
+      {
+        "id": 6,
+        "name": "Ming dynasty (Wanli)",
+        "category": "period",
+        "value": 1
+      },
+      {
+        "id": 7,
+        "name": "Ming dynasty / Qing dynasty",
+        "category": "period",
+        "value": 1
+      },
+      {
+        "id": 8,
+        "name": "albarello",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 9,
+        "name": "alms-bowl",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 10,
+        "name": "altar-vase",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 11,
+        "name": "bird-feeder",
+        "category": "type",
+        "value": 3
+      },
+      {
+        "id": 12,
+        "name": "bottle",
+        "category": "type",
+        "value": 9
+      },
+      {
+        "id": 13,
+        "name": "bowl",
+        "category": "type",
+        "value": 42
+      },
+      {
+        "id": 14,
+        "name": "box",
+        "category": "type",
+        "value": 8
+      },
+      {
+        "id": 15,
+        "name": "brush-pot",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 16,
+        "name": "brush-rest",
+        "category": "type",
+        "value": 2
+      },
+      {
+        "id": 17,
+        "name": "cup",
+        "category": "type",
+        "value": 30
+      },
+      {
+        "id": 18,
+        "name": "cup-stand",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 19,
+        "name": "dish",
+        "category": "type",
+        "value": 37
+      },
+      {
+        "id": 20,
+        "name": "ewer",
+        "category": "type",
+        "value": 5
+      },
+      {
+        "id": 21,
+        "name": "flask",
+        "category": "type",
+        "value": 5
+      },
+      {
+        "id": 22,
+        "name": "flower-pot-stand",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 23,
+        "name": "guan",
+        "category": "type",
+        "value": 3
+      },
+      {
+        "id": 24,
+        "name": "jue",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 25,
+        "name": "lamp",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 26,
+        "name": "lid",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 27,
+        "name": "kendi",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 28,
+        "name": "tile",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 29,
+        "name": "vase",
+        "category": "type",
+        "value": 29
+      },
+      {
+        "id": 30,
+        "name": "pot",
+        "category": "type",
+        "value": 8
+      },
+      {
+        "id": 31,
+        "name": "saucer",
+        "category": "type",
+        "value": 2
+      },
+      {
+        "id": 32,
+        "name": "spittoon",
+        "category": "type",
+        "value": 1
+      },
+      {
+        "id": 33,
+        "name": "base",
+        "category": "keyword",
+        "value": 154
+      },
+      {
+        "id": 34,
+        "name": "band",
+        "category": "keyword",
+        "value": 116
+      },
+      {
+        "id": 35,
+        "name": "around",
+        "category": "keyword",
+        "value": 108
+      },
+      {
+        "id": 36,
+        "name": "inscription",
+        "category": "keyword",
+        "value": 97
+      },
+      {
+        "id": 37,
+        "name": "rim",
+        "category": "keyword",
+        "value": 91
+      },
+      {
+        "id": 38,
+        "name": "two",
+        "category": "keyword",
+        "value": 88
+      },
+      {
+        "id": 39,
+        "name": "foot",
+        "category": "keyword",
+        "value": 81
+      },
+      {
+        "id": 40,
+        "name": "neck",
+        "category": "keyword",
+        "value": 76
+      },
+      {
+        "id": 41,
+        "name": "flowers",
+        "category": "keyword",
+        "value": 69
+      },
+      {
+        "id": 42,
+        "name": "inside",
+        "category": "keyword",
+        "value": 68
+      },
+      {
+        "id": 43,
+        "name": "lotus",
+        "category": "keyword",
+        "value": 68
+      },
+      {
+        "id": 44,
+        "name": "scrolling",
+        "category": "keyword",
+        "value": 68
+      },
+      {
+        "id": 45,
+        "name": "sides",
+        "category": "keyword",
+        "value": 63
+      },
+      {
+        "id": 46,
+        "name": "leaves",
+        "category": "keyword",
+        "value": 54
+      },
+      {
+        "id": 47,
+        "name": "flower",
+        "category": "keyword",
+        "value": 51
+      },
+      {
+        "id": 48,
+        "name": "body",
+        "category": "keyword",
+        "value": 48
+      },
+      {
+        "id": 49,
+        "name": "large",
+        "category": "keyword",
+        "value": 47
+      },
+      {
+        "id": 50,
+        "name": "roundel",
+        "category": "keyword",
+        "value": 47
+      }
+    ],
+    "links": [
+      {
+        "source": 0,
+        "target": 13,
+        "value": 39,
+        "category": "period_type"
+      },
+      {
+        "source": 0,
+        "target": 19,
+        "value": 36,
+        "category": "period_type"
+      },
+      {
+        "source": 0,
+        "target": 17,
+        "value": 18,
+        "category": "period_type"
+      },
+      {
+        "source": 0,
+        "target": 29,
+        "value": 17,
+        "category": "period_type"
+      },
+      {
+        "source": 0,
+        "target": 12,
+        "value": 7,
+        "category": "period_type"
+      },
+      {
+        "source": 1,
+        "target": 10,
+        "value": 1,
+        "category": "period_type"
+      },
+      {
+        "source": 1,
+        "target": 19,
+        "value": 1,
+        "category": "period_type"
+      },
+      {
+        "source": 1,
+        "target": 23,
+        "value": 1,
+        "category": "period_type"
+      },
+      {
+        "source": 2,
+        "target": 29,
+        "value": 12,
+        "category": "period_type"
+      },
+      {
+        "source": 2,
+        "target": 17,
+        "value": 6,
+        "category": "period_type"
+      },
+      {
+        "source": 2,
+        "target": 30,
+        "value": 5,
+        "category": "period_type"
+      },
+      {
+        "source": 2,
+        "target": 14,
+        "value": 4,
+        "category": "period_type"
+      },
+      {
+        "source": 2,
+        "target": 13,
+        "value": 3,
+        "category": "period_type"
+      },
+      {
+        "source": 3,
+        "target": 16,
+        "value": 1,
+        "category": "period_type"
+      },
+      {
+        "source": 4,
+        "target": 17,
+        "value": 4,
+        "category": "period_type"
+      },
+      {
+        "source": 4,
+        "target": 18,
+        "value": 1,
+        "category": "period_type"
+      },
+      {
+        "source": 5,
+        "target": 17,
+        "value": 1,
+        "category": "period_type"
+      },
+      {
+        "source": 6,
+        "target": 17,
+        "value": 1,
+        "category": "period_type"
+      },
+      {
+        "source": 7,
+        "target": 26,
+        "value": 1,
+        "category": "period_type"
+      },
+      {
+        "source": 8,
+        "target": 8,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 9,
+        "target": 13,
+        "value": 1,
+        "category": "type_keyword"
+      },
+      {
+        "source": 10,
+        "target": 44,
+        "value": 3,
+        "category": "type_keyword"
+      },
+      {
+        "source": 11,
+        "target": 47,
+        "value": 6,
+        "category": "type_keyword"
+      },
+      {
+        "source": 12,
+        "target": 12,
+        "value": 13,
+        "category": "type_keyword"
+      },
+      {
+        "source": 12,
+        "target": 40,
+        "value": 12,
+        "category": "type_keyword"
+      },
+      {
+        "source": 13,
+        "target": 13,
+        "value": 45,
+        "category": "type_keyword"
+      },
+      {
+        "source": 13,
+        "target": 34,
+        "value": 39,
+        "category": "type_keyword"
+      },
+      {
+        "source": 13,
+        "target": 33,
+        "value": 32,
+        "category": "type_keyword"
+      },
+      {
+        "source": 14,
+        "target": 14,
+        "value": 10,
+        "category": "type_keyword"
+      },
+      {
+        "source": 14,
+        "target": 33,
+        "value": 6,
+        "category": "type_keyword"
+      },
+      {
+        "source": 15,
+        "target": 36,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 17,
+        "target": 17,
+        "value": 32,
+        "category": "type_keyword"
+      },
+      {
+        "source": 17,
+        "target": 33,
+        "value": 23,
+        "category": "type_keyword"
+      },
+      {
+        "source": 18,
+        "target": 17,
+        "value": 1,
+        "category": "type_keyword"
+      },
+      {
+        "source": 18,
+        "target": 34,
+        "value": 1,
+        "category": "type_keyword"
+      },
+      {
+        "source": 19,
+        "target": 19,
+        "value": 45,
+        "category": "type_keyword"
+      },
+      {
+        "source": 19,
+        "target": 33,
+        "value": 36,
+        "category": "type_keyword"
+      },
+      {
+        "source": 19,
+        "target": 37,
+        "value": 30,
+        "category": "type_keyword"
+      },
+      {
+        "source": 20,
+        "target": 20,
+        "value": 9,
+        "category": "type_keyword"
+      },
+      {
+        "source": 21,
+        "target": 21,
+        "value": 5,
+        "category": "type_keyword"
+      },
+      {
+        "source": 21,
+        "target": 40,
+        "value": 5,
+        "category": "type_keyword"
+      },
+      {
+        "source": 22,
+        "target": 47,
+        "value": 1,
+        "category": "type_keyword"
+      },
+      {
+        "source": 22,
+        "target": 30,
+        "value": 1,
+        "category": "type_keyword"
+      },
+      {
+        "source": 23,
+        "target": 40,
+        "value": 6,
+        "category": "type_keyword"
+      },
+      {
+        "source": 23,
+        "target": 43,
+        "value": 5,
+        "category": "type_keyword"
+      },
+      {
+        "source": 24,
+        "target": 38,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 25,
+        "target": 31,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 25,
+        "target": 33,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 25,
+        "target": 17,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 26,
+        "target": 40,
+        "value": 4,
+        "category": "type_keyword"
+      },
+      {
+        "source": 26,
+        "target": 34,
+        "value": 4,
+        "category": "type_keyword"
+      },
+      {
+        "source": 26,
+        "target": 43,
+        "value": 4,
+        "category": "type_keyword"
+      },
+      {
+        "source": 27,
+        "target": 40,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 27,
+        "target": 27,
+        "value": 1,
+        "category": "type_keyword"
+      },
+      {
+        "source": 28,
+        "target": 28,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 28,
+        "target": 36,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 29,
+        "target": 29,
+        "value": 37,
+        "category": "type_keyword"
+      },
+      {
+        "source": 29,
+        "target": 40,
+        "value": 33,
+        "category": "type_keyword"
+      },
+      {
+        "source": 29,
+        "target": 34,
+        "value": 25,
+        "category": "type_keyword"
+      },
+      {
+        "source": 30,
+        "target": 30,
+        "value": 7,
+        "category": "type_keyword"
+      },
+      {
+        "source": 30,
+        "target": 46,
+        "value": 5,
+        "category": "type_keyword"
+      },
+      {
+        "source": 30,
+        "target": 48,
+        "value": 4,
+        "category": "type_keyword"
+      },
+      {
+        "source": 31,
+        "target": 31,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 31,
+        "target": 47,
+        "value": 2,
+        "category": "type_keyword"
+      },
+      {
+        "source": 32,
+        "target": 32,
+        "value": 1,
+        "category": "type_keyword"
+      }
+    ]
+  },
+  "statistics": {
+    "total_descriptions": 195,
+    "avg_length": 353.8102564102564,
+    "total_keywords": 1249,
+    "unique_keywords": 1249
+  }
+}
