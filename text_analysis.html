@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文本分析 - 青花瓷数字博物馆</title>
+    <title>Text Analysis - Blue & White Museum</title>
     <!-- 引入中文字体 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,42 +32,63 @@
 
         body {
             font-family: 'Noto Serif SC', '思源宋体', 'SimSun', serif;
-            background: linear-gradient(135deg, var(--blue-light) 0%, var(--porcelain-white) 100%);
+            background: linear-gradient(135deg, var(--blue-medium) 0%, var(--blue-light) 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px 20px;
             line-height: 1.7;
             letter-spacing: 0.02em;
         }
 
-        .header {
+        .page-layout {
+            display: flex;
+        }
+
+        .nav-column {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .nav-link {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            letter-spacing: 0.35em;
+            padding: 6px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-align: left;
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            text-shadow: 0 10px 22px rgba(0, 0, 0, 0.3), 0 0 28px rgba(255,255,255,0.65);
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+            padding-top: 10px;
+        }
+
+        .title-container {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .header h1 {
-            color: var(--blue-dark);
+        .title-container h1 {
+            color: white;
             font-size: 2.5rem;
             font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
-            margin-bottom: 10px;
-            letter-spacing: 0.05em;
-        }
-
-        .back-link {
-            display: inline-block;
-            color: var(--blue-dark);
-            text-decoration: none;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.8);
-            border: 2px solid var(--blue-medium);
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-
-        .back-link:hover {
-            background: var(--blue-medium);
-            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(26, 77, 122, 0.4);
+            letter-spacing: 0.1em;
         }
 
         .container {
@@ -103,26 +124,36 @@
         }
 
         .analysis-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
             margin-bottom: 30px;
         }
 
         .chart-card {
             background: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            align-items: flex-start;
         }
 
         .chart-card h3 {
-            margin: 0 0 15px 0;
+            margin: 0 0 20px 0;
             color: var(--blue-dark);
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: 600;
             border-bottom: 2px solid var(--blue-medium);
             padding-bottom: 10px;
+            width: 100%;
+        }
+
+        .chart-wrapper {
+            flex: 1;
+            min-width: 0;
         }
 
         .chart-container {
@@ -137,6 +168,52 @@
 
         .chart-container.small {
             height: 300px;
+        }
+
+        .analysis-text {
+            flex: 1;
+            min-width: 0;
+            padding-left: 20px;
+            border-left: 2px solid var(--blue-light);
+        }
+
+        .analysis-text h4 {
+            color: var(--blue-dark);
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .analysis-text p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .analysis-text ul {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95em;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .analysis-text li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .chart-card {
+                flex-direction: column;
+            }
+
+            .analysis-text {
+                padding-left: 0;
+                padding-top: 20px;
+                border-left: none;
+                border-top: 2px solid var(--blue-light);
+            }
         }
 
         .keyword-cloud {
@@ -189,78 +266,209 @@
             line-height: 1.8;
         }
 
+        .relationship-content {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .relationship-chart-wrapper {
+            flex: 1;
+        }
+
         #relationship-chart {
             width: 100%;
             height: 800px;
             min-height: 600px;
         }
+
+        .relationship-analysis {
+            flex: 1;
+            padding-left: 20px;
+            border-left: 2px solid var(--blue-light);
+        }
+
+        @media (max-width: 900px) {
+            .relationship-content {
+                flex-direction: column;
+            }
+
+            .relationship-analysis {
+                padding-left: 0;
+                padding-top: 20px;
+                border-left: none;
+                border-top: 2px solid var(--blue-light);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .page-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-column {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .nav-link {
+                letter-spacing: 0.2em;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                padding-top: 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📝 青花瓷文本分析</h1>
-            <a href="index.html" class="back-link">← 返回首页</a>
+    <div class="page-layout">
+        <div class="nav-column">
+            <button class="nav-link" onclick="window.location.href='index.html'">MAIN PAGE</button>
         </div>
+        <div class="main-content">
+            <div class="container">
+                <div class="title-container">
+                    <h1>TEXT ANALYSIS</h1>
+                </div>
 
-        <!-- 统计卡片 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="label">总描述数</div>
-                <div class="value" id="stat-total">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">平均长度</div>
-                <div class="value" id="stat-avg-length">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">关键词总数</div>
-                <div class="value" id="stat-keywords">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">唯一关键词</div>
-                <div class="value" id="stat-unique">0</div>
-            </div>
-        </div>
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Total Descriptions</div>
+                        <div class="value" id="stat-total">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Average Length</div>
+                        <div class="value" id="stat-avg-length">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Total Keywords</div>
+                        <div class="value" id="stat-keywords">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Unique Keywords</div>
+                        <div class="value" id="stat-unique">0</div>
+                    </div>
+                </div>
 
-        <!-- 分析图表区域 -->
-        <div class="analysis-container">
-            <div class="chart-card">
-                <h3>🔤 关键词词频（Top 20）</h3>
-                <div class="chart-container">
-                    <canvas id="keyword-chart"></canvas>
+                <!-- Analysis Charts Area -->
+                <div class="analysis-container">
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>🔤 Keyword Frequency (Top 20)</h3>
+                            <div class="chart-container">
+                                <canvas id="keyword-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>The keyword frequency chart displays the top 20 most frequently occurring terms in the blue and white porcelain descriptions, revealing the dominant themes and characteristics emphasized in the collection's documentation.</p>
+                            <p>Key observations:</p>
+                            <ul>
+                                <li>High-frequency keywords indicate common decorative motifs, materials, or stylistic features</li>
+                                <li>The distribution shows which aspects of the artifacts are most prominently described</li>
+                                <li>Rare keywords may represent unique or specialized characteristics</li>
+                                <li>This analysis helps understand the vocabulary and descriptive patterns used in cataloging</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>☁️ Keyword Cloud</h3>
+                            <div class="chart-container small">
+                                <canvas id="wordcloud-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>The keyword cloud provides a visual representation of term frequency, where the prominence of words reflects their occurrence in the descriptive texts. This visualization offers an intuitive overview of the collection's thematic landscape.</p>
+                            <p>Insights:</p>
+                            <ul>
+                                <li>Visual weight corresponds to textual importance and frequency</li>
+                                <li>Clusters of related terms may indicate common descriptive patterns</li>
+                                <li>The cloud reveals the semantic focus of the collection documentation</li>
+                                <li>Helps identify core concepts and terminology used in artifact descriptions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>🏛️ Dynasty-Keyword Relationship</h3>
+                            <div class="chart-container">
+                                <canvas id="period-keyword-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>This chart explores the relationship between historical dynasties and descriptive keywords, revealing how terminology and emphasis may vary across different time periods in the collection.</p>
+                            <p>Patterns identified:</p>
+                            <ul>
+                                <li>Certain keywords may be characteristic of specific dynasties, reflecting period-specific styles</li>
+                                <li>Consistent keywords across periods suggest enduring descriptive themes</li>
+                                <li>Variations in keyword usage may indicate evolving artistic techniques or documentation practices</li>
+                                <li>Helps trace linguistic and stylistic evolution through historical periods</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>🏺 Object Type-Keyword Relationship</h3>
+                            <div class="chart-container">
+                                <canvas id="type-keyword-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>The object type-keyword relationship chart examines how different vessel forms are described, uncovering associations between physical characteristics and descriptive language.</p>
+                            <p>Findings:</p>
+                            <ul>
+                                <li>Specific keywords may be strongly associated with particular object types</li>
+                                <li>Common keywords across types suggest shared decorative or functional features</li>
+                                <li>Unique keyword-object associations reveal distinctive characteristics of specific vessel forms</li>
+                                <li>This analysis helps understand how form and function relate to descriptive terminology</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relationship Map Area -->
+                <div class="relationship-section">
+                    <h2>🕸️ Relationship Map</h2>
+                    <div class="relationship-content">
+                        <div class="relationship-chart-wrapper">
+                            <div id="relationship-chart"></div>
+                        </div>
+                        <div class="relationship-analysis">
+                            <h4>Analysis</h4>
+                            <p>The relationship map visualizes the complex network of connections between dynasties, object types, and keywords in the blue and white porcelain collection. This interactive graph reveals hidden patterns and associations within the descriptive data.</p>
+                            <p>Network characteristics:</p>
+                            <ul>
+                                <li>Node size represents the importance or frequency of each entity</li>
+                                <li>Edge thickness indicates the strength of relationships between entities</li>
+                                <li>Color coding distinguishes between different categories (dynasties, object types, keywords)</li>
+                                <li>Clusters reveal groups of closely related entities</li>
+                            </ul>
+                            <p>Interpretation insights:</p>
+                            <ul>
+                                <li>Central nodes represent highly connected or influential entities</li>
+                                <li>Isolated nodes may indicate unique or rare characteristics</li>
+                                <li>Dense clusters suggest strong thematic or stylistic relationships</li>
+                                <li>The network structure helps identify core concepts and peripheral elements in the collection</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="chart-card">
-                <h3>☁️ 关键词云图</h3>
-                <div class="chart-container small">
-                    <canvas id="wordcloud-chart"></canvas>
-                </div>
-            </div>
-
-            <div class="chart-card">
-                <h3>🏛️ 朝代-关键词关系</h3>
-                <div class="chart-container">
-                    <canvas id="period-keyword-chart"></canvas>
-                </div>
-            </div>
-
-            <div class="chart-card">
-                <h3>🏺 器型-关键词关系</h3>
-                <div class="chart-container">
-                    <canvas id="type-keyword-chart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- 关系图谱区域 -->
-        <div class="relationship-section">
-            <h2>🕸️ 关系图谱</h2>
-            <p class="description">
-                可视化展示青花瓷描述中朝代、器型和关键词之间的复杂关系网络，揭示文本中的隐含联系
-            </p>
-            <div id="relationship-chart"></div>
         </div>
     </div>
 
@@ -268,20 +476,20 @@
         let textAnalysisData = null;
         let charts = {};
 
-        // 加载文本分析数据
+        // Load text analysis data
         async function loadTextAnalysisData() {
             try {
                 const response = await fetch('text_analysis_data.json');
                 textAnalysisData = await response.json();
                 
-                // 更新统计卡片
+                // Update statistics cards
                 const stats = textAnalysisData.statistics;
                 document.getElementById('stat-total').textContent = stats.total_descriptions;
                 document.getElementById('stat-avg-length').textContent = Math.round(stats.avg_length);
                 document.getElementById('stat-keywords').textContent = stats.total_keywords;
                 document.getElementById('stat-unique').textContent = stats.unique_keywords;
                 
-                // 创建图表
+                // Create charts
                 createKeywordChart();
                 createWordCloudChart();
                 createPeriodKeywordChart();
@@ -289,13 +497,13 @@
                 createRelationshipMap();
                 
             } catch (error) {
-                console.error('加载文本分析数据失败:', error);
+                console.error('Failed to load text analysis data:', error);
                 document.querySelector('.container').innerHTML = 
-                    '<div style="text-align: center; padding: 40px; color: #666; font-size: 1.2em;">加载文本分析数据失败，请确保text_analysis_data.json文件存在</div>';
+                    '<div style="text-align: center; padding: 40px; color: white; font-size: 1.2em;">Failed to load text analysis data. Please ensure text_analysis_data.json exists.</div>';
             }
         }
 
-        // 创建关键词词频柱状图
+        // Create keyword frequency bar chart
         function createKeywordChart() {
             const ctx = document.getElementById('keyword-chart').getContext('2d');
             const keywordFreq = textAnalysisData.text_analysis.keyword_frequency;
@@ -313,7 +521,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '出现次数',
+                        label: 'Frequency',
                         data: values,
                         backgroundColor: '#2d7fc1'
                     }]
@@ -336,7 +544,7 @@
             });
         }
 
-        // 创建词云图（使用柱状图模拟）
+        // Create word cloud chart (simulated with bar chart)
         function createWordCloudChart() {
             const ctx = document.getElementById('wordcloud-chart').getContext('2d');
             const keywordFreq = textAnalysisData.text_analysis.keyword_frequency;
@@ -347,7 +555,7 @@
             const labels = sorted.map(item => item[0]);
             const values = sorted.map(item => item[1]);
             
-            // 根据频率设置字体大小
+            // Set font size based on frequency
             const maxValue = Math.max(...values);
             const fontSizes = values.map(v => Math.max(10, (v / maxValue) * 20 + 10));
             
@@ -358,7 +566,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '频率',
+                        label: 'Frequency',
                         data: values,
                         backgroundColor: '#a8d5e2'
                     }]
@@ -384,12 +592,12 @@
             });
         }
 
-        // 创建朝代-关键词关系图
+        // Create dynasty-keyword relationship chart
         function createPeriodKeywordChart() {
             const ctx = document.getElementById('period-keyword-chart').getContext('2d');
             const periodKeywords = textAnalysisData.text_analysis.period_keywords;
             
-            // 收集所有关键词
+            // Collect all keywords
             const allKeywords = new Set();
             Object.values(periodKeywords).forEach(kw => {
                 Object.keys(kw).forEach(k => allKeywords.add(k));
@@ -437,12 +645,12 @@
             });
         }
 
-        // 创建器型-关键词关系图
+        // Create object type-keyword relationship chart
         function createTypeKeywordChart() {
             const ctx = document.getElementById('type-keyword-chart').getContext('2d');
             const typeKeywords = textAnalysisData.text_analysis.type_keywords;
             
-            // 选择Top 10器型
+            // Select Top 10 object types
             const types = Object.keys(typeKeywords).slice(0, 10);
             const allKeywords = new Set();
             types.forEach(t => {
@@ -466,7 +674,7 @@
                 type: 'bar',
                 data: {
                     labels: topKeywords,
-                    datasets: datasets.slice(0, 5) // 限制显示前5个器型
+                    datasets: datasets.slice(0, 5) // Limit to first 5 object types
                 },
                 options: {
                     responsive: true,
@@ -490,18 +698,18 @@
             });
         }
 
-        // 创建关系图谱
+        // Create relationship map
         function createRelationshipMap() {
             const chart = echarts.init(document.getElementById('relationship-chart'));
             const relationshipData = textAnalysisData.relationship_map;
             
-            // 创建节点ID到节点对象的映射
+            // Create mapping from node ID to node object
             const nodeMap = {};
             relationshipData.nodes.forEach(node => {
                 nodeMap[node.id] = node;
             });
             
-            // 准备节点数据
+            // Prepare node data
             const nodes = relationshipData.nodes.map(node => {
                 let color = '#a8d5e2';
                 let symbolSize = 30;
@@ -541,7 +749,7 @@
                 };
             });
             
-            // 准备链接数据（使用节点ID）
+            // Prepare link data (using node IDs)
             const links = relationshipData.links.map(link => {
                 const sourceNode = nodeMap[link.source];
                 const targetNode = nodeMap[link.target];
@@ -557,11 +765,11 @@
                 };
             });
             
-            // 创建分类
+            // Create categories
             const categories = [
-                { name: '朝代', itemStyle: { color: '#1a4d7a' } },
-                { name: '器型', itemStyle: { color: '#2d7fc1' } },
-                { name: '关键词', itemStyle: { color: '#4a90a4' } }
+                { name: 'Dynasty', itemStyle: { color: '#1a4d7a' } },
+                { name: 'Object Type', itemStyle: { color: '#2d7fc1' } },
+                { name: 'Keyword', itemStyle: { color: '#4a90a4' } }
             ];
             
             const option = {
@@ -570,9 +778,9 @@
                     trigger: 'item',
                     formatter: function(params) {
                         if (params.dataType === 'edge') {
-                            return `${params.data.source} → ${params.data.target}<br/>关联强度: ${params.data.value}`;
+                            return `${params.data.source} → ${params.data.target}<br/>Association Strength: ${params.data.value}`;
                         } else {
-                            return `<strong>${params.data.name}</strong><br/>类别: ${categories[params.data.category].name}<br/>权重: ${params.data.value}`;
+                            return `<strong>${params.data.name}</strong><br/>Category: ${categories[params.data.category].name}<br/>Weight: ${params.data.value}`;
                         }
                     },
                     backgroundColor: 'rgba(26, 77, 122, 0.9)',
@@ -633,13 +841,13 @@
             
             chart.setOption(option);
             
-            // 响应式
+            // Responsive
             window.addEventListener('resize', () => {
                 chart.resize();
             });
         }
 
-        // 页面加载时初始化
+        // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
             loadTextAnalysisData();
         });

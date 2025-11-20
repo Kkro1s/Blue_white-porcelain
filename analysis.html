@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数据分析 - 青花瓷数字博物馆</title>
+    <title>Data Analysis - Blue & White Museum</title>
     <!-- 引入中文字体 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,44 +30,63 @@
 
         body {
             font-family: 'Noto Serif SC', '思源宋体', 'SimSun', serif;
-            background: linear-gradient(135deg, var(--blue-light) 0%, var(--porcelain-white) 100%);
+            background: linear-gradient(135deg, var(--blue-medium) 0%, var(--blue-light) 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px 20px;
             line-height: 1.7;
             letter-spacing: 0.02em;
         }
 
-        .header {
+        .page-layout {
+            display: flex;
+        }
+
+        .nav-column {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .nav-link {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            letter-spacing: 0.35em;
+            padding: 6px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-align: left;
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            text-shadow: 0 10px 22px rgba(0, 0, 0, 0.3), 0 0 28px rgba(255,255,255,0.65);
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+            padding-top: 10px;
+        }
+
+        .title-container {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .header h1 {
-            color: var(--blue-dark);
+        .title-container h1 {
+            color: white;
             font-size: 2.5rem;
             font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
-            margin-bottom: 10px;
-            letter-spacing: 0.05em;
-        }
-
-        .back-link {
-            display: inline-block;
-            color: var(--blue-dark);
-            text-decoration: none;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.9);
-            border: 2px solid var(--blue-medium);
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .back-link:hover {
-            background: var(--blue-medium);
-            color: white;
-            border-color: var(--blue-dark);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(26, 77, 122, 0.4);
+            letter-spacing: 0.1em;
         }
 
         .container {
@@ -103,26 +122,36 @@
         }
 
         .analysis-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
             margin-bottom: 20px;
         }
 
         .chart-card {
             background: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            align-items: flex-start;
         }
 
         .chart-card h3 {
-            margin: 0 0 15px 0;
+            margin: 0 0 20px 0;
             color: var(--blue-dark);
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: 600;
             border-bottom: 2px solid var(--blue-medium);
             padding-bottom: 10px;
+            width: 100%;
+        }
+
+        .chart-wrapper {
+            flex: 1;
+            min-width: 0;
         }
 
         .chart-container {
@@ -133,6 +162,52 @@
 
         .chart-container.large {
             height: 400px;
+        }
+
+        .analysis-text {
+            flex: 1;
+            min-width: 0;
+            padding-left: 20px;
+            border-left: 2px solid var(--blue-light);
+        }
+
+        .analysis-text h4 {
+            color: var(--blue-dark);
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .analysis-text p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .analysis-text ul {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95em;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .analysis-text li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .chart-card {
+                flex-direction: column;
+            }
+
+            .analysis-text {
+                padding-left: 0;
+                padding-top: 20px;
+                border-left: none;
+                border-top: 2px solid var(--blue-light);
+            }
         }
 
         .data-table {
@@ -164,99 +239,201 @@
         .data-table tr:hover {
             background: rgba(168, 213, 226, 0.2);
         }
+
+        @media (max-width: 900px) {
+            .page-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-column {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .nav-link {
+                letter-spacing: 0.2em;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                padding-top: 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📊 青花瓷数据分析</h1>
-            <a href="index.html" class="back-link">← 返回首页</a>
+    <div class="page-layout">
+        <div class="nav-column">
+            <button class="nav-link" onclick="window.location.href='index.html'">MAIN PAGE</button>
         </div>
-
-        <div class="stats-grid" id="stats-grid">
-            <div class="stat-card">
-                <div class="label">总记录数</div>
-                <div class="value" id="stat-total">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">朝代种类</div>
-                <div class="value" id="stat-periods">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">器型种类</div>
-                <div class="value" id="stat-types">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">装饰元素</div>
-                <div class="value" id="stat-elements">0</div>
-            </div>
-        </div>
-
-        <div class="analysis-container">
-            <div class="chart-card">
-                <h3>📊 朝代分布</h3>
-                <div class="chart-container">
-                    <canvas id="periods-chart"></canvas>
+        <div class="main-content">
+            <div class="container">
+                <div class="title-container">
+                    <h1>DATA ANALYSIS</h1>
                 </div>
-            </div>
 
-            <div class="chart-card">
-                <h3>🏺 器型分布（Top 15）</h3>
-                <div class="chart-container">
-                    <canvas id="types-chart"></canvas>
+                <div class="stats-grid" id="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Total Records</div>
+                        <div class="value" id="stat-total">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Dynasty Types</div>
+                        <div class="value" id="stat-periods">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Object Types</div>
+                        <div class="value" id="stat-types">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Decorative Elements</div>
+                        <div class="value" id="stat-elements">0</div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="chart-card">
-                <h3>🎨 装饰元素分布（Top 15）</h3>
-                <div class="chart-container">
-                    <canvas id="elements-chart"></canvas>
+                <div class="analysis-container">
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>📊 Dynasty Distribution</h3>
+                            <div class="chart-container">
+                                <canvas id="periods-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>The dynasty distribution pie chart reveals the temporal spread of blue and white porcelain artifacts across different historical periods. This visualization helps identify which dynasties contributed most significantly to the collection.</p>
+                            <p>Key insights include:</p>
+                            <ul>
+                                <li>The relative proportion of artifacts from each dynasty period</li>
+                                <li>Historical periods with the highest artifact production or preservation rates</li>
+                                <li>Potential gaps in the collection that may indicate historical transitions or preservation challenges</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>🏺 Object Type Distribution (Top 15)</h3>
+                            <div class="chart-container">
+                                <canvas id="types-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>This bar chart displays the top 15 most common object types in the collection, providing insight into the functional diversity and cultural preferences of blue and white porcelain production.</p>
+                            <p>Observations:</p>
+                            <ul>
+                                <li>The most prevalent vessel forms reflect daily use patterns and ceremonial functions</li>
+                                <li>Variations in object types may indicate different production centers or periods</li>
+                                <li>Rare object types suggest specialized functions or unique artistic expressions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>🎨 Decorative Element Distribution (Top 15)</h3>
+                            <div class="chart-container">
+                                <canvas id="elements-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>The decorative element distribution highlights the most frequently used motifs and patterns in blue and white porcelain design, revealing aesthetic preferences and cultural symbolism.</p>
+                            <p>Key findings:</p>
+                            <ul>
+                                <li>Common motifs reflect traditional Chinese artistic themes and natural elements</li>
+                                <li>Pattern frequency may indicate cultural significance or production techniques</li>
+                                <li>Variations in decorative elements can help identify regional styles or time periods</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>📅 Time Distribution (by Century)</h3>
+                            <div class="chart-container">
+                                <canvas id="years-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>This line chart tracks the chronological distribution of artifacts across centuries, showing trends in production, preservation, and collection acquisition over time.</p>
+                            <p>Trends observed:</p>
+                            <ul>
+                                <li>Peak periods may indicate golden ages of porcelain production or better preservation conditions</li>
+                                <li>Declines could reflect historical events, economic changes, or preservation challenges</li>
+                                <li>The overall trajectory provides context for the evolution of blue and white porcelain artistry</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>📏 Height Distribution</h3>
+                            <div class="chart-container">
+                                <canvas id="height-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>The height distribution chart categorizes artifacts by size ranges, revealing the dimensional characteristics of the collection and functional relationships between size and object type.</p>
+                            <p>Insights:</p>
+                            <ul>
+                                <li>Size ranges reflect different functional purposes—from small decorative pieces to large storage vessels</li>
+                                <li>Height variations may correlate with specific dynasties or production techniques</li>
+                                <li>The distribution helps understand the scale diversity within the collection</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-wrapper">
+                            <h3>🔄 Dynasty-Object Type Relationship</h3>
+                            <div class="chart-container large">
+                                <canvas id="heatmap-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analysis-text">
+                            <h4>Analysis</h4>
+                            <p>This grouped bar chart explores the relationship between dynasties and object types, revealing how vessel forms evolved or remained consistent across different historical periods.</p>
+                            <p>Patterns identified:</p>
+                            <ul>
+                                <li>Certain object types may be characteristic of specific dynasties</li>
+                                <li>Continuity in object types across periods suggests enduring cultural practices</li>
+                                <li>Emergence of new forms may indicate technological innovations or cultural shifts</li>
+                                <li>The visualization helps trace the evolution of ceramic artistry through time</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="chart-card">
-                <h3>📅 时间分布（按世纪）</h3>
-                <div class="chart-container">
-                    <canvas id="years-chart"></canvas>
-                </div>
-            </div>
-
-            <div class="chart-card">
-                <h3>📏 高度分布</h3>
-                <div class="chart-container">
-                    <canvas id="height-chart"></canvas>
-                </div>
-            </div>
-
-            <div class="chart-card">
-                <h3>🔄 朝代-器型关系</h3>
-                <div class="chart-container large">
-                    <canvas id="heatmap-chart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="data-table">
-            <h3 style="margin-bottom: 15px; color: var(--blue-dark); font-weight: 600;">📋 详细数据表格</h3>
-            <div style="margin-bottom: 10px;">
-                <input type="text" id="table-search" placeholder="搜索..." style="padding: 8px; width: 300px; border: 2px solid #ddd; border-radius: 5px;">
-                <select id="table-filter-period" style="padding: 8px; margin-left: 10px; border: 2px solid #ddd; border-radius: 5px;">
-                    <option value="">所有朝代</option>
-                </select>
-                <select id="table-filter-type" style="padding: 8px; margin-left: 10px; border: 2px solid #ddd; border-radius: 5px;">
-                    <option value="">所有器型</option>
-                </select>
-            </div>
+                <div class="data-table">
+                    <h3 style="margin-bottom: 15px; color: var(--blue-dark); font-weight: 600;">📋 Detailed Data Table</h3>
+                    <div style="margin-bottom: 10px;">
+                        <input type="text" id="table-search" placeholder="Search..." style="padding: 8px; width: 300px; border: 2px solid #ddd; border-radius: 5px;">
+                        <select id="table-filter-period" style="padding: 8px; margin-left: 10px; border: 2px solid #ddd; border-radius: 5px;">
+                            <option value="">All Dynasties</option>
+                        </select>
+                        <select id="table-filter-type" style="padding: 8px; margin-left: 10px; border: 2px solid #ddd; border-radius: 5px;">
+                            <option value="">All Object Types</option>
+                        </select>
+                    </div>
             <div style="max-height: 500px; overflow-y: auto;">
                 <table id="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>年代</th>
-                            <th>朝代</th>
-                            <th>器型</th>
-                            <th>高度</th>
-                            <th>装饰元素</th>
+                            <th>Date</th>
+                            <th>Dynasty</th>
+                            <th>Object Type</th>
+                            <th>Height</th>
+                            <th>Decorative Elements</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">
@@ -270,19 +447,19 @@
         let analysisData = null;
         let charts = {};
 
-        // 加载分析数据并创建图表
+        // Load analysis data and create charts
         async function loadAnalysisData() {
             try {
                 const response = await fetch('analysis_data.json');
                 analysisData = await response.json();
                 
-                // 更新统计卡片
+                // Update statistics cards
                 document.getElementById('stat-total').textContent = Object.values(analysisData.periods).reduce((a, b) => a + b, 0);
                 document.getElementById('stat-periods').textContent = Object.keys(analysisData.periods).length;
                 document.getElementById('stat-types').textContent = Object.keys(analysisData.types).length;
                 document.getElementById('stat-elements').textContent = Object.keys(analysisData.elements).length;
                 
-                // 创建图表
+                // Create charts
                 createPeriodsChart();
                 createTypesChart();
                 createElementsChart();
@@ -292,13 +469,13 @@
                 createDataTable();
                 
             } catch (error) {
-                console.error('加载分析数据失败:', error);
+                console.error('Failed to load analysis data:', error);
                 document.querySelector('.container').innerHTML = 
-                    '<div style="text-align: center; padding: 40px; color: white; font-size: 1.2em;">加载分析数据失败，请确保analysis_data.json文件存在</div>';
+                    '<div style="text-align: center; padding: 40px; color: white; font-size: 1.2em;">Failed to load analysis data. Please ensure analysis_data.json exists.</div>';
             }
         }
 
-        // 创建朝代分布饼图
+        // Create dynasty distribution pie chart
         function createPeriodsChart() {
             const ctx = document.getElementById('periods-chart').getContext('2d');
             const labels = Object.keys(analysisData.periods);
@@ -330,7 +507,7 @@
             });
         }
 
-        // 创建器型分布柱状图
+        // Create object type distribution bar chart
         function createTypesChart() {
             const ctx = document.getElementById('types-chart').getContext('2d');
             const sorted = Object.entries(analysisData.types)
@@ -346,7 +523,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '数量',
+                        label: 'Count',
                         data: values,
                         backgroundColor: '#2d7fc1'
                     }]
@@ -368,7 +545,7 @@
             });
         }
 
-        // 创建装饰元素柱状图
+        // Create decorative element bar chart
         function createElementsChart() {
             const ctx = document.getElementById('elements-chart').getContext('2d');
             const sorted = Object.entries(analysisData.elements)
@@ -384,7 +561,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '出现次数',
+                        label: 'Frequency',
                         data: values,
                         backgroundColor: '#a8d5e2'
                     }]
@@ -407,7 +584,7 @@
             });
         }
 
-        // 创建时间分布折线图
+        // Create time distribution line chart
         function createYearsChart() {
             const ctx = document.getElementById('years-chart').getContext('2d');
             const sorted = Object.entries(analysisData.year_bins)
@@ -422,7 +599,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '数量',
+                        label: 'Count',
                         data: values,
                         borderColor: '#2d7fc1',
                         backgroundColor: 'rgba(45, 127, 193, 0.1)',
@@ -442,7 +619,7 @@
             });
         }
 
-        // 创建高度分布柱状图
+        // Create height distribution bar chart
         function createHeightChart() {
             const ctx = document.getElementById('height-chart').getContext('2d');
             const sorted = Object.entries(analysisData.height_bins)
@@ -460,7 +637,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '数量',
+                        label: 'Count',
                         data: values,
                         backgroundColor: '#a8d5e2'
                     }]
@@ -482,13 +659,13 @@
             });
         }
 
-        // 创建热力图（朝代-器型关系）
+        // Create heatmap (dynasty-object type relationship)
         function createHeatmapChart() {
             const ctx = document.getElementById('heatmap-chart').getContext('2d');
             const periods = Object.keys(analysisData.period_type_cross);
             const allTypes = [...new Set(Object.values(analysisData.period_type_cross).flatMap(obj => Object.keys(obj)))];
             
-            // 准备数据
+            // Prepare data
             const datasets = periods.map((period, idx) => {
                 const periodData = analysisData.period_type_cross[period];
                 return {
@@ -528,14 +705,14 @@
             });
         }
 
-        // 创建数据表格
+        // Create data table
         async function createDataTable() {
             try {
                 const response = await fetch('Processed_Data.csv');
                 const text = await response.text();
                 const lines = text.split('\n');
                 
-                // 解析CSV
+                // Parse CSV
                 const tableData = [];
                 for (let i = 1; i < lines.length; i++) {
                     if (lines[i].trim() === '') continue;
@@ -552,7 +729,7 @@
                     }
                 }
                 
-                // 填充过滤器选项
+                // Populate filter options
                 const periods = [...new Set(tableData.map(d => d.period).filter(Boolean))].sort();
                 const types = [...new Set(tableData.map(d => d.type).filter(Boolean))].sort();
                 
@@ -572,7 +749,7 @@
                     typeSelect.appendChild(option);
                 });
                 
-                // 渲染表格
+                // Render table
                 function renderTable(data) {
                     const tbody = document.getElementById('table-body');
                     tbody.innerHTML = data.map(item => `
@@ -589,7 +766,7 @@
                 
                 renderTable(tableData);
                 
-                // 搜索和过滤
+                // Search and filter
                 function filterTable() {
                     const search = document.getElementById('table-search').value.toLowerCase();
                     const periodFilter = document.getElementById('table-filter-period').value;
@@ -615,11 +792,11 @@
                 document.getElementById('table-filter-type').addEventListener('change', filterTable);
                 
             } catch (error) {
-                console.error('加载表格数据失败:', error);
+                console.error('Failed to load table data:', error);
             }
         }
 
-        // CSV解析辅助函数
+        // CSV parsing helper function
         function parseCSVLine(line) {
             const values = [];
             let current = '';
@@ -647,7 +824,7 @@
             return values;
         }
 
-        // 页面加载时初始化
+        // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
             loadAnalysisData();
         });

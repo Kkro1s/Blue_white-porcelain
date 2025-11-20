@@ -32,9 +32,54 @@
             font-family: 'Noto Serif SC', '思源宋体', 'SimSun', serif;
             background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 50%, var(--blue-light) 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px 20px;
             line-height: 1.7;
             letter-spacing: 0.02em;
+        }
+
+        .page-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .view-tabs {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .view-tab {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            letter-spacing: 0.35em;
+            padding: 6px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .view-tab.active {
+            color: white;
+            font-weight: 600;
+            text-shadow: 0 10px 22px rgba(0, 0, 0, 0.4), 0 0 28px rgba(255,255,255,0.65);
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+            padding-top: 20px;
         }
 
         .header {
@@ -47,28 +92,50 @@
             font-size: 2.5rem;
             font-weight: 700;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(26, 77, 122, 0.4);
-            margin-bottom: 10px;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
         }
 
         .back-link {
             display: inline-block;
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 10px 30px;
+            border-radius: 999px;
             background: rgba(255,255,255,0.2);
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: background 0.3s;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
         .back-link:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.35);
+            transform: translateY(-2px);
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(26, 77, 122, 0.15);
         }
 
         .controls {
@@ -319,6 +386,31 @@
             box-shadow: 0 8px 24px rgba(26, 77, 122, 0.15);
         }
 
+        @media (max-width: 900px) {
+            .page-layout {
+                flex-direction: column;
+            }
+
+            .view-tabs {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .view-tab {
+                letter-spacing: 0.25em;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 0;
+            }
+        }
+
         .sankey-section h2 {
             color: var(--blue-dark);
             font-size: 2rem;
@@ -343,67 +435,66 @@
             min-height: 500px;
         }
 
-        /* RGB颜色展示区域 */
+        /* RGB color display */
         .rgb-section {
             margin-bottom: 40px;
         }
 
-        .section-divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
-            margin: 40px 0;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎨 青花瓷RGB颜色可视化</h1>
-            <a href="index.html" class="back-link">← 返回首页</a>
+    <div class="page-layout">
+        <div class="view-tabs">
+            <button class="view-tab active" data-target="sankey">SANKEY DIAGRAM</button>
+            <button class="view-tab" data-target="color">RGB COLOR DISPLAY</button>
+            <button class="view-tab" data-target="main">MAIN PAGE</button>
         </div>
-        
-        <!-- RGB颜色展示区域 -->
-        <div class="rgb-section">
-            <div class="stats">
-                <span>总图片数: <strong id="total-count">0</strong></span>
-                <span>显示: <strong id="display-count">0</strong></span>
-            </div>
+        <div class="main-content">
+            <div class="container">
+                <div class="header">
+                    <h1>COLOR EXPLORER</h1>
+                </div>
 
-            <div class="controls">
-                <input type="text" id="search-input" placeholder="搜索ID、类型或URL...">
-                <select id="type-filter">
-                    <option value="">所有类型</option>
-                </select>
-                <select id="sort-select">
-                    <option value="id-asc">ID 升序</option>
-                    <option value="id-desc">ID 降序</option>
-                    <option value="colors-asc">颜色数 升序</option>
-                    <option value="colors-desc">颜色数 降序</option>
-                </select>
-            </div>
-
-            <div id="gallery" class="gallery">
-                <div class="empty-state">加载中...</div>
-            </div>
-
-            <!-- 分页控件 -->
-            <div class="pagination" id="pagination" style="display: none;">
-                <button id="prev-btn" onclick="changePage(-1)">上一页</button>
-                <span class="pagination-info" id="page-info">第 1 页，共 1 页</span>
-                <button id="next-btn" onclick="changePage(1)">下一页</button>
+                <div class="view-section active" data-section="sankey">
+            <div class="sankey-section">
+                <h2>SANKEY DIAGRAM</h2>
+                <div id="sankey-chart"></div>
             </div>
         </div>
 
-        <!-- 分隔线 -->
-        <div class="section-divider"></div>
+                <div class="view-section" data-section="color">
+            <div class="rgb-section">
+                <div class="stats">
+                    <span>Total images: <strong id="total-count">0</strong></span>
+                    <span>Displaying: <strong id="display-count">0</strong></span>
+                </div>
 
-        <!-- 桑基图区域 -->
-        <div class="sankey-section">
-            <h2>📊 颜色流动关系图</h2>
-            <p class="description">
-                展示青花瓷在不同朝代、颜色类别和器型之间的流动关系，揭示颜色使用的历史演变规律
-            </p>
-            <div id="sankey-chart"></div>
+                <div class="controls">
+                    <input type="text" id="search-input" placeholder="Search ID, type or URL...">
+                    <select id="type-filter">
+                        <option value="">All types</option>
+                    </select>
+                    <select id="sort-select">
+                        <option value="id-asc">ID Ascending</option>
+                        <option value="id-desc">ID Descending</option>
+                        <option value="colors-asc">Colors Ascending</option>
+                        <option value="colors-desc">Colors Descending</option>
+                    </select>
+                </div>
+
+                <div id="gallery" class="gallery">
+                    <div class="empty-state">Loading...</div>
+                </div>
+
+                <div class="pagination" id="pagination" style="display: none;">
+                    <button id="prev-btn" onclick="changePage(-1)">Prev</button>
+                    <span class="pagination-info" id="page-info">Page 1 of 1</span>
+                    <button id="next-btn" onclick="changePage(1)">Next</button>
+                </div>
+            </div>
+        </div>
+
+            </div>
         </div>
     </div>
 
@@ -412,6 +503,17 @@
         let filteredData = [];
         let currentPage = 1;
         const itemsPerPage = 6; // 每页显示6个卡片
+        const viewTabs = document.querySelectorAll('.view-tab');
+        const viewSections = document.querySelectorAll('.view-section');
+        let sankeyInitialized = false;
+
+        const sankeyLabelMap = {
+            '其他色系': 'Other Colors',
+            '灰色系': 'Gray Scale',
+            '白色系': 'White Palette',
+            '蓝色系': 'Blue Palette',
+            '黑色系': 'Black Palette'
+        };
 
         // 解析RGB颜色字符串
         function parseColors(colorString) {
@@ -434,6 +536,10 @@
             });
             
             return colors.sort((a, b) => b.percentage - a.percentage);
+        }
+
+        function translateSankeyLabel(name) {
+            return sankeyLabelMap[name] || name;
         }
 
         // 创建卡片HTML
@@ -480,7 +586,7 @@
                         }
                     </div>
                     <div class="colors-section">
-                        <h4>RGB颜色 (${colors.length}种)</h4>
+                        <h4>RGB Colors (${colors.length} colors)</h4>
                         <div class="color-palette">${colorPaletteHTML}</div>
                         ${colorBarHTML}
                     </div>
@@ -493,7 +599,7 @@
             const gallery = document.getElementById('gallery');
             
             if (data.length === 0) {
-                gallery.innerHTML = '<div class="empty-state">没有找到匹配的结果</div>';
+                gallery.innerHTML = '<div class="empty-state">No matching results</div>';
                 document.getElementById('pagination').style.display = 'none';
                 return;
             }
@@ -528,7 +634,7 @@
             }
             
             pagination.style.display = 'flex';
-            pageInfo.textContent = `第 ${currentPage} 页，共 ${totalPages} 页（共 ${totalItems} 项）`;
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages} (total ${totalItems})`;
             
             prevBtn.disabled = currentPage === 1;
             nextBtn.disabled = currentPage === totalPages;
@@ -660,7 +766,7 @@
             } catch (error) {
                 console.error('加载数据失败:', error);
                 document.getElementById('gallery').innerHTML = 
-                    '<div class="empty-state">加载数据失败，请确保CSV文件在同一目录下</div>';
+                    '<div class="empty-state">Failed to load data. Please confirm color.csv exists.</div>';
             }
         }
 
@@ -671,25 +777,22 @@
                 const sankeyData = await response.json();
                 
                 const chart = echarts.init(document.getElementById('sankey-chart'));
+                const originalNameMap = {};
                 
-                // 创建节点名称到索引的映射
-                const nodeNameMap = {};
                 sankeyData.nodes.forEach((node, index) => {
-                    nodeNameMap[index] = node.name;
+                    originalNameMap[index] = node.name;
                 });
                 
-                // 准备ECharts桑基图数据格式
-                const nodes = sankeyData.nodes.map((node) => ({
-                    name: node.name,
+                const nodes = sankeyData.nodes.map(node => ({
+                    name: translateSankeyLabel(node.name),
                     itemStyle: {
                         color: getNodeColor(node.category, node.name)
                     }
                 }));
                 
-                // 转换链接：从索引转换为节点名称
                 const links = sankeyData.links.map(link => ({
-                    source: nodeNameMap[link.source],
-                    target: nodeNameMap[link.target],
+                    source: translateSankeyLabel(originalNameMap[link.source]),
+                    target: translateSankeyLabel(originalNameMap[link.target]),
                     value: link.value
                 }));
                 
@@ -709,9 +812,9 @@
                             if (params.dataType === 'edge') {
                                 return `<div style="padding: 5px;">
                                     <strong>${params.data.source}</strong><br/>
-                                    ↓<br/>
+                                    <span style="opacity: 0.7;">→</span><br/>
                                     <strong>${params.data.target}</strong><br/>
-                                    <span style="color: #a8d5e2;">权重: ${params.data.value.toFixed(3)}</span>
+                                    <span style="color: #a8d5e2;">Flow: ${params.data.value.toFixed(3)}</span>
                                 </div>`;
                             } else {
                                 return `<div style="padding: 5px;"><strong>${params.name}</strong></div>`;
@@ -723,12 +826,12 @@
                         layout: 'none',
                         left: '5%',
                         right: '5%',
-                        top: '5%',
-                        bottom: '10%',
+                        top: '0%',
+                        bottom: '5%',
                         emphasis: {
                             focus: 'adjacency',
                             lineStyle: {
-                                opacity: 0.8
+                                opacity: 0.85
                             }
                         },
                         data: nodes,
@@ -736,7 +839,7 @@
                         lineStyle: {
                             color: 'gradient',
                             curveness: 0.5,
-                            opacity: 0.6
+                            opacity: 0.65
                         },
                         itemStyle: {
                             borderWidth: 1,
@@ -745,7 +848,7 @@
                         },
                         label: {
                             fontSize: 13,
-                            fontFamily: 'Noto Serif SC',
+                            fontFamily: 'Noto Serif SC, serif',
                             color: '#2c2c2c',
                             fontWeight: 500
                         },
@@ -756,31 +859,31 @@
                 };
                 
                 chart.setOption(option);
+                sankeyInitialized = true;
                 
-                // 响应式
                 window.addEventListener('resize', () => {
                     chart.resize();
                 });
                 
             } catch (error) {
-                console.error('加载桑基图数据失败:', error);
+                console.error('Failed to load sankey data:', error);
                 document.getElementById('sankey-chart').innerHTML = 
-                    '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666;">加载桑基图数据失败，请确保sankey_data.json文件存在</div>';
+                    '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666;">Unable to load sankey_data.json</div>';
             }
         }
 
         // 根据节点类别和名称获取颜色
         function getNodeColor(category, name) {
             const colorMap = {
-                '蓝色系': '#2d7fc1',
-                '白色系': '#f8f8f6',
-                '黑色系': '#2c2c2c',
-                '灰色系': '#808080',
-                '其他色系': '#a8d5e2'
+                'Blue Palette': '#2d7fc1',
+                'White Palette': '#f8f8f6',
+                'Black Palette': '#2c2c2c',
+                'Gray Scale': '#808080',
+                'Other Colors': '#a8d5e2'
             };
             
             if (category === 'color') {
-                return colorMap[name] || '#a8d5e2';
+                return colorMap[translateSankeyLabel(name)] || '#a8d5e2';
             } else if (category === 'period') {
                 return '#1a4d7a';
             } else if (category === 'type') {
@@ -789,7 +892,29 @@
             return '#a8d5e2';
         }
 
+        function setActiveSection(target) {
+            viewSections.forEach(section => {
+                section.classList.toggle('active', section.dataset.section === target);
+            });
+            viewTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.target === target);
+            });
+            if (target === 'sankey' && !sankeyInitialized) {
+                initSankeyChart();
+            }
+        }
+
         // 事件监听
+        viewTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                if (tab.dataset.target === 'main') {
+                    window.location.href = 'index.html';
+                } else {
+                    setActiveSection(tab.dataset.target);
+                }
+            });
+        });
+
         document.getElementById('search-input').addEventListener('input', () => {
             currentPage = 1;
             filterAndSort();
@@ -803,9 +928,9 @@
             filterAndSort();
         });
 
-        // 页面加载时加载数据
+        // 页面加载时加载数据并默认展示桑基图
         loadData();
-        initSankeyChart();
+        setActiveSection('sankey');
     </script>
 </body>
 </html>

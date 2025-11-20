@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>地理分布 - 青花瓷数字博物馆</title>
+    <title>Geographic Distribution - Blue & White Museum</title>
     <!-- 引入中文字体 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,38 +34,59 @@
             font-family: 'Noto Serif SC', '思源宋体', 'SimSun', serif;
             background: linear-gradient(135deg, var(--blue-medium) 0%, var(--blue-light) 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px 20px;
             line-height: 1.7;
             letter-spacing: 0.02em;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        .page-layout {
+            display: flex;
         }
 
-        .header h1 {
+        .nav-column {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .nav-link {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            letter-spacing: 0.35em;
+            padding: 6px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .nav-link:hover {
+            text-shadow: 0 10px 22px rgba(0, 0, 0, 0.3), 0 0 28px rgba(255,255,255,0.65);
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+            padding-top: 10px;
+        }
+
+        .title-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .title-container h1 {
             color: white;
             font-size: 2.5rem;
             font-weight: 700;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(26, 77, 122, 0.4);
-            margin-bottom: 10px;
-            letter-spacing: 0.05em;
-        }
-
-        .back-link {
-            display: inline-block;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-
-        .back-link:hover {
-            background: rgba(255,255,255,0.3);
+            letter-spacing: 0.1em;
         }
 
         .container {
@@ -82,15 +103,6 @@
             text-align: center;
         }
 
-        .stats span {
-            margin: 0 15px;
-            color: #666;
-        }
-
-        .stats strong {
-            color: var(--blue-medium);
-            font-weight: 600;
-        }
 
         #map {
             height: 700px;
@@ -138,44 +150,71 @@
             color: #555;
             line-height: 1.5;
         }
+
+        @media (max-width: 900px) {
+            .page-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-column {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .nav-link {
+                letter-spacing: 0.2em;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                padding-top: 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🗺️ 青花瓷地理分布</h1>
-            <a href="index.html" class="back-link">← 返回首页</a>
+    <div class="page-layout">
+        <div class="nav-column">
+            <button class="nav-link" onclick="window.location.href='index.html'">MAIN PAGE</button>
         </div>
-        
-        <div class="stats">
-            <span>总位置数: <strong id="location-count">0</strong></span>
+        <div class="main-content">
+            <div class="container">
+                <div class="title-container">
+                    <h1>GEOGRAPHIC MAP</h1>
+                </div>
+                
+                <div class="stats">
+                    <span>Total locations: <strong id="location-count">0</strong></span>
+                </div>
+                <div id="map"></div>
+            </div>
         </div>
-        <div id="map"></div>
     </div>
 
     <script>
         let locationData = [];
         let map = null;
 
-        // 初始化地图
+        // Initialize map
         function initMap() {
-            // 创建地图，中心点设置为中国
             map = L.map('map').setView([35.0, 105.0], 4);
 
-            // 添加OpenStreetMap图层
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors',
                 maxZoom: 18
             }).addTo(map);
 
-            // 加载位置数据并添加标记
             loadLocationData();
         }
 
-        // 加载位置数据
         async function loadLocationData() {
             try {
-                const response = await fetch('location_data.json');
+                const response = await fetch(`location_data.json?v=${Date.now()}`);
                 locationData = await response.json();
                 
                 document.getElementById('location-count').textContent = locationData.length;
@@ -207,16 +246,16 @@
                         }
 
                         popupContent += `
-                                <p><span class="label">时期:</span> ${item.periods || '未知'}</p>
-                                <p><span class="label">年代:</span> ${item.date || '未知'}</p>
-                                <p><span class="label">类型:</span> ${item.type || '未知'}</p>
-                                <p><span class="label">尺寸:</span> ${item.size || '未知'}</p>
-                                <p><span class="label">元素:</span> ${item.element || '未知'}</p>
-                                <p><span class="label">对象编号:</span> ${item.objectNum || '未知'}</p>
+                                <p><span class="label">Period:</span> ${item.periods || 'Unknown'}</p>
+                                <p><span class="label">Date:</span> ${item.date || 'Unknown'}</p>
+                                <p><span class="label">Type:</span> ${item.type || 'Unknown'}</p>
+                                <p><span class="label">Size:</span> ${item.size || 'Unknown'}</p>
+                                <p><span class="label">Elements:</span> ${item.element || 'Unknown'}</p>
+                                <p><span class="label">Object No.:</span> ${item.objectNum || 'Unknown'}</p>
                         `;
 
                         if (item.description) {
-                            popupContent += `<div class="description"><span class="label">描述:</span> ${item.description}</div>`;
+                            popupContent += `<div class="description"><span class="label">Description:</span> ${item.description}</div>`;
                         }
 
                         popupContent += `</div>`;

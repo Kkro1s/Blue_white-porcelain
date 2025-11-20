@@ -36,170 +36,106 @@
             overflow-x: hidden;
             line-height: 1.7;
             letter-spacing: 0.02em;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* 传统纹样背景 */
-        .pattern-bg {
-            position: absolute;
+        /* 页面背景 */
+        .page-background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.05;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(26, 77, 122, 0.1) 10px, rgba(26, 77, 122, 0.1) 20px),
-                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 77, 122, 0.1) 10px, rgba(26, 77, 122, 0.1) 20px);
-            z-index: 1;
-        }
-
-        /* 封面区域 */
-        .cover-section {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 50%, var(--blue-light) 100%);
+            background: rgb(1, 67, 100);
+            z-index: -1;
             overflow: hidden;
         }
 
-        .cover-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.85;
-            filter: brightness(0.9) contrast(1.1);
-        }
-
-        .cover-overlay {
+        .bg-blur-layer,
+        .bg-image-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(26, 77, 122, 0.75) 0%, 
-                rgba(45, 127, 193, 0.7) 50%, 
-                rgba(168, 213, 226, 0.65) 100%);
-            backdrop-filter: blur(2px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
+            background-position: center center;
+            background-repeat: no-repeat;
+            transition: opacity 0.8s ease, background-size 0.8s ease;
+        }
+
+        .bg-blur-layer {
+            background-size: cover;
+            filter: blur(30px);
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+
+        .bg-image-layer {
+            background-size: contain;
+            z-index: 1;
+        }
+
+        .page-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.12);
             z-index: 2;
         }
 
-        .cover-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 12px rgba(0,0,0,0.6), 0 0 30px rgba(26, 77, 122, 0.5);
-            animation: fadeInUp 1s ease-out;
-            letter-spacing: 0.05em;
-        }
 
-        .cover-subtitle {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 40px;
-            opacity: 0.95;
-            animation: fadeInUp 1.2s ease-out;
-            letter-spacing: 0.03em;
-            line-height: 1.8;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            z-index: 3;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            width: 30px;
-            height: 50px;
-            border: 3px solid white;
-            border-radius: 25px;
-            position: relative;
-        }
-
-        .scroll-indicator span::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 10px;
-            background: white;
-            border-radius: 3px;
-            animation: scrollDown 2s infinite;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        @keyframes scrollDown {
-            0% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-        }
-
-        /* 导航区域 */
-        .navigation-section {
-            min-height: 100vh;
-            background: var(--paper-beige);
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(168, 213, 226, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(45, 127, 193, 0.1) 0%, transparent 50%);
-            padding: 80px 20px;
+        /* 导航按钮区域 */
+        .nav-buttons {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            z-index: 100;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            gap: 20px;
+        }
+
+        .nav-button {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        .nav-button:hover {
+            opacity: 1;
+            transform: translateX(5px);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+        }
+
+
+        /* 时间轴区域 */
+        .timeline-section {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 60px 60px;
+            z-index: 50;
+        }
+
+        .timeline-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
             position: relative;
         }
 
-        .navigation-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
-        }
-
-        .section-title {
+        .timeline-title {
             font-size: 2.5rem;
             font-weight: 600;
             color: var(--blue-dark);
@@ -209,7 +145,7 @@
             position: relative;
         }
 
-        .section-title::after {
+        .timeline-title::after {
             content: '';
             position: absolute;
             bottom: -15px;
@@ -220,135 +156,132 @@
             background: linear-gradient(90deg, transparent, var(--blue-medium), transparent);
         }
 
-        .nav-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
-            width: 100%;
-            margin-top: 40px;
-        }
-
-        .nav-card {
-            background: var(--porcelain-white);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 24px rgba(26, 77, 122, 0.15);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+        .timeline-track {
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(168, 213, 226, 0.3);
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
-        .nav-card::before {
-            content: '';
+        .timeline-period-labels {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .timeline-period-label {
+            font-size: 0.95rem;
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .timeline-period-label.active {
+            opacity: 1;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .timeline-markers {
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
         }
 
-        .nav-card:hover::before {
-            left: 100%;
+        .timeline-marker {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
         }
 
-        .nav-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 16px 48px rgba(26, 77, 122, 0.25);
+        .timeline-marker:hover {
+            transform: translateY(-50%) scale(1.4);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
-        .nav-card-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-            transition: transform 0.3s;
+        .timeline-marker.active {
+            background: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 1);
         }
 
-        .nav-card:hover .nav-card-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .nav-card-title {
-            font-size: 1.75rem;
+        .timeline-marker-label {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.9rem;
             color: var(--blue-dark);
-            margin-bottom: 15px;
             font-weight: 600;
-            letter-spacing: 0.03em;
+            padding: 5px 12px;
+            background: var(--porcelain-white);
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
-        .nav-card-description {
-            font-size: 1rem;
-            color: var(--ink-black);
-            line-height: 1.8;
-            opacity: 0.8;
+        .timeline-marker:hover .timeline-marker-label {
+            opacity: 1;
         }
 
-        /* 统一使用青花瓷主题色，通过深浅变化区分 */
-        .nav-card:nth-child(1) {
-            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 100%);
-            color: white;
-            border-color: rgba(255,255,255,0.2);
+        .timeline-slider {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            cursor: grab;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: box-shadow 0.3s ease;
         }
 
-        .nav-card:nth-child(1) .nav-card-title {
-            color: white;
+        .timeline-slider:active {
+            cursor: grabbing;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
         }
 
-        .nav-card:nth-child(1) .nav-card-description {
-            color: rgba(255,255,255,0.95);
+        .timeline-slider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: rgba(26, 77, 122, 0.6);
+            border-radius: 50%;
         }
 
-        .nav-card:nth-child(2) {
-            background: linear-gradient(135deg, var(--blue-medium) 0%, var(--blue-light) 100%);
-            color: white;
-            border-color: rgba(255,255,255,0.2);
-        }
-
-        .nav-card:nth-child(2) .nav-card-title {
-            color: white;
-        }
-
-        .nav-card:nth-child(2) .nav-card-description {
-            color: rgba(255,255,255,0.95);
-        }
-
-        .nav-card:nth-child(3) {
-            background: linear-gradient(135deg, var(--blue-light) 0%, var(--porcelain-white) 100%);
-            color: var(--blue-dark);
-            border-color: rgba(26, 77, 122, 0.2);
-        }
-
-        .nav-card:nth-child(3) .nav-card-title {
-            color: var(--blue-dark);
-        }
-
-        .nav-card:nth-child(3) .nav-card-description {
-            color: var(--ink-black);
-        }
-
-        .nav-card:nth-child(4) {
-            background: linear-gradient(135deg, var(--porcelain-white) 0%, var(--paper-beige) 100%);
-            color: var(--blue-dark);
-            border-color: rgba(26, 77, 122, 0.2);
-        }
-
-        .nav-card:nth-child(4) .nav-card-title {
-            color: var(--blue-dark);
-        }
-
-        .nav-card:nth-child(4) .nav-card-description {
-            color: var(--ink-black);
-        }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -372,66 +305,344 @@
             .nav-card {
                 padding: 30px;
             }
+
+            .timeline-container {
+                padding: 40px 20px 100px;
+            }
+
+            .timeline-title {
+                font-size: 2em;
+            }
+
+            .nav-buttons {
+                top: 20px;
+                left: 20px;
+                gap: 15px;
+            }
+
+            .nav-button {
+                font-size: 1rem;
+            }
+
+            .timeline-section {
+                padding: 30px 30px 40px;
+            }
+
+            .timeline-period-label {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 封面区域 -->
-    <section class="cover-section">
-        <div class="pattern-bg"></div>
-        <img src="生成青花瓷封面.png" alt="青花瓷封面" class="cover-image">
-        <div class="cover-overlay">
-            <h1 class="cover-title">青花瓷数字博物馆</h1>
-            <p class="cover-subtitle">探索千年青花瓷的艺术与历史</p>
-        </div>
-        <div class="scroll-indicator">
-            <span></span>
-        </div>
-    </section>
+    <!-- 页面背景 -->
+    <div class="page-background" id="pageBackground">
+        <div class="bg-blur-layer" id="bgBlurLayer"></div>
+        <div class="bg-image-layer" id="bgImageLayer"></div>
+    </div>
 
-    <!-- 导航区域 -->
-    <section class="navigation-section">
-        <h2 class="section-title">选择探索方式</h2>
-        <div class="nav-cards">
-            <a href="colors.html" class="nav-card">
-                <div class="nav-card-icon">🎨</div>
-                <h3 class="nav-card-title">颜色可视化</h3>
-                <p class="nav-card-description">
-                    浏览青花瓷的RGB颜色分析，探索每件作品的色彩构成和分布规律
-                </p>
-            </a>
+    <!-- 导航按钮 -->
+    <nav class="nav-buttons">
+        <a href="colors.html" class="nav-button">COLOR</a>
+        <a href="map.html" class="nav-button">GIS</a>
+        <a href="analysis.html" class="nav-button">DATA</a>
+        <a href="text_analysis.html" class="nav-button">TEXT</a>
+    </nav>
 
-            <a href="map.html" class="nav-card">
-                <div class="nav-card-icon">🗺️</div>
-                <h3 class="nav-card-title">地理分布</h3>
-                <p class="nav-card-description">
-                    在地图上查看青花瓷的地理分布，了解不同地区的青花瓷特色
-                </p>
-            </a>
-
-            <a href="analysis.html" class="nav-card">
-                <div class="nav-card-icon">📊</div>
-                <h3 class="nav-card-title">数据分析</h3>
-                <p class="nav-card-description">
-                    深入分析青花瓷的朝代分布、器型统计和装饰元素等多维度数据
-                </p>
-            </a>
-
-            <a href="text_analysis.html" class="nav-card">
-                <div class="nav-card-icon">📝</div>
-                <h3 class="nav-card-title">文本分析</h3>
-                <p class="nav-card-description">
-                    通过文本挖掘和关系图谱，探索青花瓷描述中的关键词、主题和隐含关系
-                </p>
-            </a>
+    <!-- 时间轴区域 -->
+    <section class="timeline-section">
+        <div class="timeline-container">
+            <div class="timeline-track" id="timelineTrack">
+                <div class="timeline-markers" id="timelineMarkers"></div>
+                <div class="timeline-slider" id="timelineSlider"></div>
+                <div class="timeline-period-labels" id="timelinePeriodLabels"></div>
+            </div>
         </div>
     </section>
 
     <script>
-        // 平滑滚动效果
-        document.querySelector('.scroll-indicator').addEventListener('click', () => {
-            document.querySelector('.navigation-section').scrollIntoView({ behavior: 'smooth' });
-        });
+        // 时间轴功能
+        (function() {
+            // 朝代顺序定义（按时间顺序）
+            const indexNames = {
+                'yuan': '元朝',
+                'ming（zhengde）': '明朝（正德）',
+                'ming（xuande）': '明朝（宣德）',
+                'ming（wanli）': '明朝（万历）',
+                'ming': '明朝',
+                'qing': '清朝'
+            };
+
+            let timelineData = [];
+            let currentPeriod = null;
+            let isDragging = false;
+            const pageBackground = document.getElementById('pageBackground');
+            const bgBlurLayer = document.getElementById('bgBlurLayer');
+            const bgImageLayer = document.getElementById('bgImageLayer');
+
+            // 加载 index.csv 数据
+            async function loadTimelineData() {
+                try {
+                    const response = await fetch('index.csv');
+                    const text = await response.text();
+                    const lines = text.trim().split(/\r?\n/);
+                    if (lines.length < 2) {
+                        console.error('index.csv 格式不正确');
+                        return;
+                    }
+
+                    const periodKeys = lines[0].split(',').map(key => key.trim());
+                    const urls = lines[1].split(',').map(url => url.trim());
+
+                    timelineData = periodKeys.map((key, idx) => ({
+                        period: key,
+                        name: indexNames[key] || key,
+                        images: urls[idx] ? [{ url: urls[idx], period: key }] : []
+                    })).filter(item => item.images.length > 0);
+
+                    initTimeline();
+                } catch (error) {
+                    console.error('加载数据失败:', error);
+                }
+            }
+
+            // 初始化时间轴
+            function initTimeline() {
+                const track = document.getElementById('timelineTrack');
+                const markers = document.getElementById('timelineMarkers');
+                const slider = document.getElementById('timelineSlider');
+                const periodLabels = document.getElementById('timelinePeriodLabels');
+                
+                // 创建标记点和朝代标签
+                timelineData.forEach((item, index) => {
+                    const leftPercent = timelineData.length > 1 
+                        ? (index / (timelineData.length - 1)) * 100 
+                        : 50; // 如果只有一个朝代，放在中间
+                    
+                    // 创建标记点
+                    const marker = document.createElement('div');
+                    marker.className = 'timeline-marker';
+                    marker.style.left = `${leftPercent}%`;
+                    marker.dataset.period = item.period;
+                    marker.dataset.position = leftPercent;
+                    
+                    const label = document.createElement('div');
+                    label.className = 'timeline-marker-label';
+                    label.textContent = item.name;
+                    marker.appendChild(label);
+                    
+                    marker.addEventListener('click', () => {
+                        moveSliderToPeriod(item.period);
+                    });
+                    
+                    markers.appendChild(marker);
+                    
+                    // 创建朝代标签（在时间轴下方）
+                    const periodLabel = document.createElement('div');
+                    periodLabel.className = 'timeline-period-label';
+                    periodLabel.textContent = item.name;
+                    periodLabel.style.left = `${leftPercent}%`;
+                    periodLabel.dataset.period = item.period;
+                    periodLabel.dataset.position = leftPercent;
+                    periodLabels.appendChild(periodLabel);
+                });
+                
+                // 初始化滑块位置（第一个朝代）并设置背景
+                if (timelineData.length > 0) {
+                    const firstPeriod = timelineData[0];
+                    currentPeriod = firstPeriod.period;
+                    updateBackground(firstPeriod);
+                    moveSliderToPeriod(firstPeriod.period);
+                }
+                
+                // 拖动功能
+                slider.addEventListener('mousedown', startDrag);
+                slider.addEventListener('touchstart', startDrag);
+                
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('touchmove', drag);
+                document.addEventListener('mouseup', stopDrag);
+                document.addEventListener('touchend', stopDrag);
+                
+                // 点击轨道移动滑块
+                track.addEventListener('click', (e) => {
+                    if (e.target === track || e.target === markers || e.target === periodLabels) {
+                        const rect = track.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+                        moveSliderToPercentage(percentage);
+                    }
+                });
+            }
+
+            // 移动滑块到指定朝代
+            function moveSliderToPeriod(period) {
+                const index = timelineData.findIndex(item => item.period === period);
+                if (index === -1) return;
+                
+                const percentage = timelineData.length > 1 
+                    ? (index / (timelineData.length - 1)) * 100 
+                    : 50; // 如果只有一个朝代，放在中间
+                moveSliderToPercentage(percentage);
+            }
+
+            // 移动滑块到指定百分比
+            function moveSliderToPercentage(percentage) {
+                const slider = document.getElementById('timelineSlider');
+                slider.style.left = `${percentage}%`;
+                
+                // 找到最近的朝代
+                let nearestPeriod = null;
+                let nearestDistance = Infinity;
+                
+                timelineData.forEach((item, index) => {
+                    const position = timelineData.length > 1 
+                        ? (index / (timelineData.length - 1)) * 100 
+                        : 50;
+                    const distance = Math.abs(percentage - position);
+                    
+                    if (distance < nearestDistance) {
+                        nearestDistance = distance;
+                        nearestPeriod = item;
+                    }
+                });
+                
+                // 更新背景和标记
+                if (nearestPeriod && nearestPeriod.period !== currentPeriod) {
+                    currentPeriod = nearestPeriod.period;
+                    updateBackground(nearestPeriod);
+                    updateActiveMarker(nearestPeriod.period);
+                    updateActiveLabel(nearestPeriod.period);
+                }
+            }
+
+            // 更新页面背景
+            function updateBackground(periodData) {
+                if (periodData.images && periodData.images.length > 0) {
+                    // 随机选择一张图片
+                    const randomIndex = Math.floor(Math.random() * periodData.images.length);
+                    const selectedImage = periodData.images[randomIndex];
+                    
+                    // 创建新图片元素预加载
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    img.onload = function() {
+                        // 图片加载完成后设置背景
+                        bgBlurLayer.style.backgroundImage = `url(${selectedImage.url})`;
+                        bgImageLayer.style.backgroundImage = `url(${selectedImage.url})`;
+                        bgImageLayer.style.opacity = '0';
+                        bgBlurLayer.style.opacity = '0';
+                        // 触发重排
+                        bgImageLayer.offsetHeight;
+                        bgBlurLayer.offsetHeight;
+                        // 淡入效果
+                        bgImageLayer.style.opacity = '1';
+                        bgBlurLayer.style.opacity = '0.9';
+
+                        const avgColor = getAverageEdgeColor(img);
+                        if (avgColor) {
+                            pageBackground.style.background = `linear-gradient(135deg, rgba(255,255,255,0.15), ${avgColor})`;
+                        } else {
+                            pageBackground.style.background = 'rgb(1, 67, 100)';
+                        }
+                    };
+                    img.onerror = function() {
+                        // 如果图片加载失败，使用默认背景
+                        resetBackgroundLayers();
+                    };
+                    img.src = selectedImage.url;
+                } else {
+                    // 如果没有图片，使用默认背景
+                    resetBackgroundLayers();
+                }
+            }
+
+            function resetBackgroundLayers() {
+                bgBlurLayer.style.backgroundImage = 'none';
+                bgImageLayer.style.backgroundImage = 'none';
+                bgBlurLayer.style.opacity = '0';
+                bgImageLayer.style.opacity = '0';
+                pageBackground.style.background = 'rgb(1, 67, 100)';
+            }
+
+            function getAverageEdgeColor(img) {
+                try {
+                    const sampleSize = 40;
+                    const canvas = document.createElement('canvas');
+                    canvas.width = sampleSize;
+                    canvas.height = sampleSize;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, sampleSize, sampleSize);
+                    const data = ctx.getImageData(0, 0, sampleSize, sampleSize).data;
+                    let r = 0, g = 0, b = 0, count = 0;
+                    for (let y = 0; y < sampleSize; y++) {
+                        for (let x = 0; x < sampleSize; x++) {
+                            if (x === 0 || y === 0 || x === sampleSize - 1 || y === sampleSize - 1) {
+                                const index = (y * sampleSize + x) * 4;
+                                r += data[index];
+                                g += data[index + 1];
+                                b += data[index + 2];
+                                count++;
+                            }
+                        }
+                    }
+                    if (count === 0) return null;
+                    return `rgb(${Math.round(r / count)}, ${Math.round(g / count)}, ${Math.round(b / count)})`;
+                } catch (error) {
+                    console.warn('Edge color sampling failed:', error);
+                    return null;
+                }
+            }
+            // 更新活动标记
+            function updateActiveMarker(period) {
+                const markers = document.querySelectorAll('.timeline-marker');
+                markers.forEach(marker => {
+                    if (marker.dataset.period === period) {
+                        marker.classList.add('active');
+                    } else {
+                        marker.classList.remove('active');
+                    }
+                });
+            }
+
+            // 更新活动标签
+            function updateActiveLabel(period) {
+                const labels = document.querySelectorAll('.timeline-period-label');
+                labels.forEach(label => {
+                    if (label.dataset.period === period) {
+                        label.classList.add('active');
+                    } else {
+                        label.classList.remove('active');
+                    }
+                });
+            }
+
+            // 拖动功能
+            function startDrag(e) {
+                isDragging = true;
+                e.preventDefault();
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+                
+                const track = document.getElementById('timelineTrack');
+                const rect = track.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const x = clientX - rect.left;
+                const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+                
+                moveSliderToPercentage(percentage);
+            }
+
+            function stopDrag() {
+                isDragging = false;
+            }
+
+
+            // 页面加载完成后初始化
+            loadTimelineData();
+        })();
     </script>
 </body>
 </html>
