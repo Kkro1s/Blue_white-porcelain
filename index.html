@@ -523,32 +523,39 @@
                     const randomIndex = Math.floor(Math.random() * periodData.images.length);
                     const selectedImage = periodData.images[randomIndex];
                     
-                    // 创建新图片元素预加载
+                    // 先直接设置背景图片（不使用 crossOrigin，避免 CORS 问题）
+                    bgBlurLayer.style.backgroundImage = `url(${selectedImage.url})`;
+                    bgImageLayer.style.backgroundImage = `url(${selectedImage.url})`;
+                    bgImageLayer.style.opacity = '0';
+                    bgBlurLayer.style.opacity = '0';
+                    // 触发重排
+                    bgImageLayer.offsetHeight;
+                    bgBlurLayer.offsetHeight;
+                    // 淡入效果
+                    bgImageLayer.style.opacity = '1';
+                    bgBlurLayer.style.opacity = '0.9';
+                    
+                    // 尝试加载图片用于颜色采样（可选，失败不影响显示）
                     const img = new Image();
-                    img.crossOrigin = 'anonymous';
+                    // 不设置 crossOrigin，避免 CORS 阻止图片加载
                     img.onload = function() {
-                        // 图片加载完成后设置背景
-                        bgBlurLayer.style.backgroundImage = `url(${selectedImage.url})`;
-                        bgImageLayer.style.backgroundImage = `url(${selectedImage.url})`;
-                        bgImageLayer.style.opacity = '0';
-                        bgBlurLayer.style.opacity = '0';
-                        // 触发重排
-                        bgImageLayer.offsetHeight;
-                        bgBlurLayer.offsetHeight;
-                        // 淡入效果
-                        bgImageLayer.style.opacity = '1';
-                        bgBlurLayer.style.opacity = '0.9';
-
-                        const avgColor = getAverageEdgeColor(img);
-                        if (avgColor) {
-                            pageBackground.style.background = `linear-gradient(135deg, rgba(255,255,255,0.15), ${avgColor})`;
-                        } else {
+                        // 尝试颜色采样，如果失败也不影响图片显示
+                        try {
+                            const avgColor = getAverageEdgeColor(img);
+                            if (avgColor) {
+                                pageBackground.style.background = `linear-gradient(135deg, rgba(255,255,255,0.15), ${avgColor})`;
+                            } else {
+                                pageBackground.style.background = 'rgb(1, 67, 100)';
+                            }
+                        } catch (e) {
+                            // 颜色采样失败，使用默认背景色
                             pageBackground.style.background = 'rgb(1, 67, 100)';
                         }
                     };
                     img.onerror = function() {
-                        // 如果图片加载失败，使用默认背景
-                        resetBackgroundLayers();
+                        // 图片加载失败不影响背景显示（因为已经直接设置了背景）
+                        // 只使用默认背景色
+                        pageBackground.style.background = 'rgb(1, 67, 100)';
                     };
                     img.src = selectedImage.url;
                 } else {
