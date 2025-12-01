@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Blue & White Porcelain Digital Museum</title>
+    <!-- 引入中文字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 青花瓷主题色彩体系 */
+            --blue-dark: #1a4d7a;
+            --blue-medium: #2d7fc1;
+            --blue-light: #a8d5e2;
+            --porcelain-white: #f8f8f6;
+            --ink-black: #2c2c2c;
+            --seal-red: #c94a3d;
+            --paper-beige: #f5f1e8;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', '思源宋体', 'SimSun', serif;
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 50%, var(--blue-light) 100%);
+            min-height: 100vh;
+            padding: 40px 20px 20px;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+            color: var(--ink-black);
+        }
+
+        .nav-column {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .nav-link {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            letter-spacing: 0.35em;
+            padding: 6px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-align: left;
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            color: white;
+            text-shadow: 0 10px 22px rgba(0, 0, 0, 0.3), 0 0 28px rgba(255,255,255,0.65);
+        }
+
+        .nav-link.active {
+            color: white;
+            font-weight: 600;
+            text-shadow: 0 10px 22px rgba(0, 0, 0, 0.4), 0 0 28px rgba(255,255,255,0.65);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-left: 120px;
+        }
+
+        .title-container {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+
+        .title-container h1 {
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(26, 77, 122, 0.4);
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        .content-card {
+            background: var(--porcelain-white);
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .content-card h2 {
+            color: var(--blue-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--blue-medium);
+            letter-spacing: 0.05em;
+        }
+
+        .content-card h3 {
+            color: var(--blue-dark);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 0.03em;
+        }
+
+        .content-card p {
+            color: var(--ink-black);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .content-card li {
+            color: var(--ink-black);
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .content-card li::before {
+            content: '•';
+            color: var(--blue-medium);
+            font-weight: bold;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .content-card strong {
+            color: var(--blue-dark);
+            font-weight: 600;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,248,246,0.95) 100%);
+            border-left: 5px solid var(--blue-medium);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .intro-section p {
+            font-size: 1.15rem;
+            color: var(--ink-black);
+            font-style: italic;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .nav-column {
+                top: 15px;
+                left: 15px;
+                gap: 8px;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
+            }
+
+            .title-container h1 {
+                font-size: 2rem;
+            }
+
+            .content-card {
+                padding: 30px 20px;
+            }
+
+            .content-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-card p,
+            .content-card li {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav-column">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="colors.html" class="nav-link">COLOR</a>
+        <a href="map.html" class="nav-link">GIS</a>
+        <a href="analysis.html" class="nav-link">DATA</a>
+        <a href="text_analysis.html" class="nav-link">TEXT</a>
+        <a href="about.html" class="nav-link active">ABOUT</a>
+        <a href="team.html" class="nav-link">TEAM</a>
+    </nav>
+
+    <div class="container">
+        <div class="title-container">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h1>About the Blue and White Porcelain Digital Museum</h1>
+        </div>
+
+        <div class="content-card">
+            <div class="intro-section">
+                <p>This digital museum is a comprehensive platform dedicated to exploring the art, history, and cultural significance of blue and white porcelain through multi-dimensional data visualization and analysis. Our project combines modern web technologies with traditional Chinese cultural heritage to create an immersive digital experience.</p>
+            </div>
+
+            <h2>Research Content</h2>
+            <p>The Blue and White Porcelain Digital Museum focuses on the systematic study and visualization of blue and white porcelain artifacts across different dynasties, regions, and artistic styles. Our research encompasses:</p>
+            
+            <ul>
+                <li><strong>Color Analysis:</strong> Detailed examination of the distinctive blue-and-white color palette, RGB color extraction, and color proportion visualization to understand the chromatic characteristics of these artifacts.</li>
+                <li><strong>Geographic Distribution:</strong> Mapping the spatial distribution of blue and white porcelain collections worldwide, revealing the global reach and cultural exchange patterns of this art form.</li>
+                <li><strong>Temporal Analysis:</strong> Chronological study spanning from the Yuan Dynasty (1271-1368) through the Ming Dynasty (1368-1644) to the Qing Dynasty (1644-1912), tracking the evolution of styles, techniques, and decorative motifs over centuries.</li>
+                <li><strong>Typological Classification:</strong> Systematic categorization by vessel types (bottles, bowls, vases, plates, etc.) and decorative elements, enabling comparative analysis across different artifact categories.</li>
+                <li><strong>Textual Analysis:</strong> Keyword frequency analysis and relationship mapping to uncover patterns in descriptions, provenance, and cultural associations of blue and white porcelain.</li>
+            </ul>
+
+            <h2>Data Sources</h2>
+            <p>Our dataset draws from prestigious museum collections and cultural institutions worldwide:</p>
+            
+            <ul>
+                <li><strong>The British Museum:</strong> Extensive holdings of blue and white porcelain artifacts with rich provenance information and historical context.</li>
+                <li><strong>Additional Collections:</strong> Selected artifacts from other major museums including Musée Guimet, National Palace Museum (Taipei), and various international institutions, ensuring a diverse and representative sample.</li>
+            </ul>
+            
+            <p>All data has been processed, cleaned, and structured to enable interactive exploration and analysis. Images are sourced directly from museum digital archives, ensuring authenticity and high resolution for detailed examination.</p>
+
+            <h2>Presentation Methods</h2>
+            <p>The digital museum employs multiple visualization techniques to present complex data in accessible and engaging formats:</p>
+            
+            <ul>
+                <li><strong>Interactive Color Visualization:</strong> Browse porcelain images with extracted RGB color palettes, color proportion charts, and Sankey diagrams showing color flow relationships. Advanced filtering and sorting capabilities allow users to explore specific color characteristics.</li>
+                <li><strong>Geographic Information System (GIS):</strong> Interactive maps using Leaflet.js display the geographic distribution of artifacts, with markers providing detailed information including period, dynasty, type, dimensions, and provenance.</li>
+                <li><strong>Statistical Data Analysis:</strong> Comprehensive dashboards featuring pie charts for dynasty distribution, bar charts for vessel type analysis, heatmaps showing dynasty-vessel relationships, and trend lines illustrating temporal patterns.</li>
+                <li><strong>Text Analysis and Network Visualization:</strong> Word clouds, keyword frequency charts, and relationship graphs (using ECharts) reveal connections between dynasties, vessel types, and descriptive keywords, uncovering hidden patterns in the textual metadata.</li>
+                <li><strong>Timeline Navigation:</strong> An interactive timeline on the homepage allows users to explore artifacts chronologically, with dynamic background images reflecting the selected historical period.</li>
+            </ul>
+            
+            <p>All visualizations are responsive, optimized for various screen sizes, and designed with a cohesive blue-and-white porcelain theme that honors traditional Chinese aesthetics while maintaining modern usability.</p>
+
+            <h2>Future Development</h2>
+            <p>The Blue and White Porcelain Digital Museum is an evolving project with several planned enhancements:</p>
+            
+            <ul>
+                <li><strong>Expanded Dataset:</strong> Integration of additional museum collections and private collections to create a more comprehensive global database of blue and white porcelain artifacts.</li>
+                <li><strong>Advanced Color Analysis:</strong> Implementation of machine learning algorithms for automatic pattern recognition, style classification, and artistic technique identification.</li>
+                <li><strong>3D Visualization:</strong> Development of 3D models and virtual reality experiences to allow users to examine artifacts from multiple angles and understand their three-dimensional forms.</li>
+                <li><strong>Comparative Analysis Tools:</strong> Enhanced features for side-by-side comparison of artifacts, enabling users to identify similarities, differences, and stylistic evolution patterns.</li>
+                <li><strong>Multilingual Support:</strong> Expansion of language options to make the platform accessible to international audiences, with translations of metadata and descriptions.</li>
+                <li><strong>Educational Resources:</strong> Addition of educational content including historical context, manufacturing techniques, cultural significance, and interactive learning modules.</li>
+                <li><strong>Community Features:</strong> User contributions, annotations, and collaborative research capabilities to foster academic and public engagement with blue and white porcelain studies.</li>
+                <li><strong>API Development:</strong> Creation of a public API to enable researchers and developers to access structured data for their own projects and analyses.</li>
+                <li><strong>Mobile Application:</strong> Development of dedicated mobile applications for iOS and Android to enhance accessibility and provide offline viewing capabilities.</li>
+            </ul>
+
+            <div class="intro-section" style="margin-top: 40px;">
+                <p>This project represents a bridge between traditional cultural heritage and modern digital technology, making the rich history of blue and white porcelain accessible to researchers, students, and enthusiasts worldwide.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
